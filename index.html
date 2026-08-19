@@ -4,6 +4,11 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>मावळ वार्ता | स्थानिक बातम्या</title>
+<meta name="description" content="मावळ, लोणावळा, पिंपरी-चिंचवड आणि पुणे जिल्ह्यातील ताज्या स्थानिक बातम्या, क्राईम न्युज आणि व्हिडिओ अपडेट्स.">
+<meta property="og:title" content="मावळ वार्ता | स्थानिक बातम्या">
+<meta property="og:description" content="बातमी क्षणा-क्षणात, मना-मनात">
+<meta property="og:type" content="website">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23e8720c'/%3E%3Ctext x='32' y='42' font-size='28' text-anchor='middle' fill='white' font-family='sans-serif'%3E%E0%A4%AE%E0%A4%BE%3C/text%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Tiro+Devanagari+Marathi:ital@0;1&family=Baloo+2:wght@500;600;700;800&family=Noto+Sans+Devanagari:wght@400;500;600;700&family=Noto+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
@@ -29,8 +34,17 @@
     color:var(--ink);
     font-family:'Noto Sans Devanagari','Noto Sans',sans-serif;
     -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
   }
   a{color:inherit;text-decoration:none;}
+  a:focus-visible,button:focus-visible{
+    outline:3px solid var(--saffron);outline-offset:2px;border-radius:3px;
+  }
+  .skip-link{
+    position:absolute;left:-999px;top:0;background:var(--saffron);color:var(--ink);
+    padding:10px 16px;font-family:'Noto Sans',sans-serif;font-weight:700;font-size:13px;z-index:999;border-radius:0 0 6px 0;
+  }
+  .skip-link:focus{left:0;}
   h1,h2,h3,h4{font-family:'Tiro Devanagari Marathi',serif;margin:0;line-height:1.25;}
   .eyebrow{
     font-family:'Noto Sans',sans-serif;
@@ -44,9 +58,14 @@
   /* ---- utility band ---- */
   .utility{background:var(--ink);color:#dfe4ef;font-size:12.5px;}
   .utility .wrap{display:flex;justify-content:space-between;align-items:center;height:34px;font-family:'Noto Sans',sans-serif;}
-  .utility .date{opacity:.75;}
+  .utility .date{opacity:.75;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+  .utility .quick{white-space:nowrap;flex-shrink:0;}
   .utility .quick a{margin-left:16px;opacity:.85;}
   .utility .quick a:hover{opacity:1;color:var(--saffron);}
+  @media (max-width:640px){
+    .utility .quick a:not(:last-child){display:none;}
+    .utility .date{font-size:11px;}
+  }
 
   /* ---- ticker ---- */
   .ticker-band{
@@ -79,16 +98,16 @@
 
   /* ---- masthead ---- */
   .masthead{background:var(--paper);border-bottom:4px double var(--ink);}
-  .masthead .wrap{display:flex;align-items:center;justify-content:space-between;padding:22px 20px 16px;gap:24px;}
+  .masthead .wrap{display:flex;align-items:center;justify-content:space-between;padding:22px 20px 16px;gap:24px;flex-wrap:wrap;}
   .brand{display:flex;align-items:center;gap:14px;}
   .brand-mark{
-    width:56px;height:56px;border-radius:14px;
+    width:56px;height:56px;border-radius:14px;flex-shrink:0;
     background:conic-gradient(from 210deg,var(--saffron),var(--gold) 40%,var(--leaf) 75%,var(--saffron));
     display:flex;align-items:center;justify-content:center;
     font-family:'Tiro Devanagari Marathi',serif;font-weight:700;font-size:24px;color:#fff;
     box-shadow:0 4px 14px rgba(26,39,64,.18);
   }
-  .brand-text h1{font-size:34px;font-weight:700;letter-spacing:.01em;}
+  .brand-text h1{font-size:clamp(24px,6vw,34px);font-weight:700;letter-spacing:.01em;}
   .brand-text .tag{font-family:'Noto Sans Devanagari',sans-serif;font-size:13px;color:var(--ink-soft);margin-top:2px;}
   .masthead-side{text-align:right;font-family:'Noto Sans',sans-serif;font-size:12.5px;color:var(--ink-soft);}
   .masthead-side .live{
@@ -96,6 +115,10 @@
   }
   .live-dot{width:7px;height:7px;border-radius:50%;background:var(--wine);animation:pulse 1.6s ease-in-out infinite;}
   @keyframes pulse{0%,100%{opacity:1;}50%{opacity:.3;}}
+  @media (max-width:600px){
+    .masthead .wrap{padding:16px 16px 12px;}
+    .masthead-side{text-align:left;}
+  }
 
   /* ---- nav ---- */
   nav.primary{background:var(--ink);}
@@ -145,14 +168,15 @@
 
   /* hero */
   .hero-story .thumb{aspect-ratio:16/9;}
-  .hero-story h2{font-size:28px;margin-top:16px;}
+  .hero-story h2{font-size:clamp(21px,5vw,28px);margin-top:16px;}
   .hero-story h2 a:hover{color:var(--saffron-deep);}
   .meta{font-family:'Noto Sans',sans-serif;font-size:12px;color:var(--ink-soft);margin-top:8px;display:flex;gap:10px;align-items:center;}
   .wa-share{
-    margin-left:auto;width:24px;height:24px;border-radius:50%;
+    margin-left:auto;width:30px;height:30px;border-radius:50%;
     background:#25D366;color:#fff;display:inline-flex;align-items:center;justify-content:center;
     flex-shrink:0;transition:transform .15s ease,box-shadow .15s ease;
   }
+  .wa-share svg{width:18px;height:18px;}
   .wa-share:hover{transform:scale(1.12);box-shadow:0 3px 10px rgba(37,211,102,.4);}
   .mr-item .meta{margin-top:6px;}
   .hero-story p.dek{margin-top:10px;color:var(--ink-soft);font-size:15px;line-height:1.7;}
@@ -169,7 +193,7 @@
     display:flex;align-items:center;justify-content:space-between;
     margin:44px 0 18px;padding-bottom:10px;border-bottom:3px solid var(--ink);
   }
-  .section-head h2{font-size:22px;display:flex;align-items:center;gap:10px;}
+  .section-head h2{font-size:clamp(18px,4.5vw,22px);display:flex;align-items:center;gap:10px;}
   .section-head .bar{width:6px;height:22px;border-radius:2px;display:inline-block;}
   .section-head a.more{font-family:'Noto Sans',sans-serif;font-size:12.5px;font-weight:700;color:var(--ink-soft);}
   .section-head a.more:hover{color:var(--saffron-deep);}
@@ -212,6 +236,10 @@
     border-radius:12px;padding:30px 34px;display:flex;align-items:center;justify-content:space-between;gap:24px;color:#fff;
     flex-wrap:wrap;
   }
+  @media (max-width:600px){
+    .cta-strip{padding:24px;}
+    .cta-btn{width:100%;justify-content:center;}
+  }
   .cta-strip h2{color:#fff;font-size:22px;}
   .cta-strip p{font-family:'Noto Sans Devanagari',sans-serif;color:#c7cee2;margin-top:6px;font-size:14px;}
   .cta-btn{
@@ -246,6 +274,8 @@
 </style>
 </head>
 <body>
+
+  <a class="skip-link" href="#top">मुख्य मजकुरावर जा</a>
 
   <div class="utility">
     <div class="wrap">
@@ -302,7 +332,7 @@
     <div class="grid-main">
       <div class="hero-story">
         <div class="thumb">
-          <img src="https://picsum.photos/seed/lonavala-hero/900/560" alt="" loading="lazy">
+          <img src="https://picsum.photos/seed/lonavala-hero/900/560" alt="लोणावळा बातमी - प्रातिनिधिक छायाचित्र" loading="lazy">
           <span class="cat-chip chip-lonavala">लोणावळा</span>
         </div>
         <h2><a href="#">पवना धरण ९२ टक्के भरले; परिसरातील गावांना सतर्कतेचा इशारा</a></h2>
@@ -313,28 +343,28 @@
       <div class="side-panel">
         <div class="side-list">
           <div class="side-list-item">
-            <div class="thumb"><img src="https://picsum.photos/seed/maval-farm-1/600/400" alt="" loading="lazy"><span class="cat-chip chip-maval">मावळ</span></div>
+            <div class="thumb"><img src="https://picsum.photos/seed/maval-farm-1/600/400" alt="मावळ बातमी - प्रातिनिधिक छायाचित्र" loading="lazy"><span class="cat-chip chip-maval">मावळ</span></div>
             <div class="body">
               <h3><a href="#">वडगाव मावळ शाळेतील विद्यार्थ्यांचा विज्ञान प्रकल्पात राज्यात नावलौकिक</a></h3>
             <div class="meta"><span>१७ ऑगस्ट</span><span>·</span><span>मावळ</span><a class="wa-share" href="https://wa.me/?text=%E0%A4%B5%E0%A4%A1%E0%A4%97%E0%A4%BE%E0%A4%B5%20%E0%A4%AE%E0%A4%BE%E0%A4%B5%E0%A4%B3%20%E0%A4%B6%E0%A4%BE%E0%A4%B3%E0%A5%87%E0%A4%A4%E0%A5%80%E0%A4%B2%20%E0%A4%B5%E0%A4%BF%E0%A4%A6%E0%A5%8D%E0%A4%AF%E0%A4%BE%E0%A4%B0%E0%A5%8D%E0%A4%A5%E0%A5%8D%E0%A4%AF%E0%A4%BE%E0%A4%82%E0%A4%9A%E0%A4%BE%20%E0%A4%B5%E0%A4%BF%E0%A4%9C%E0%A5%8D%E0%A4%9E%E0%A4%BE%E0%A4%A8%20%E0%A4%AA%E0%A5%8D%E0%A4%B0%E0%A4%95%E0%A4%B2%E0%A5%8D%E0%A4%AA%E0%A4%BE%E0%A4%A4%20%E0%A4%B0%E0%A4%BE%E0%A4%9C%E0%A5%8D%E0%A4%AF%E0%A4%BE%E0%A4%A4%20%E0%A4%A8%E0%A4%BE%E0%A4%B5%E0%A4%B2%E0%A5%8C%E0%A4%95%E0%A4%BF%E0%A4%95%20%E2%80%94%20https%3A//mavalvarta.example.com/news" target="_blank" rel="noopener" aria-label="WhatsApp वर शेअर करा" title="WhatsApp वर शेअर करा"><svg viewBox="0 0 32 32" width="15" height="15" fill="currentColor"><path d="M16.02 3C9.4 3 4 8.38 4 15c0 2.34.63 4.53 1.72 6.42L4 29l7.78-1.65A11.9 11.9 0 0 0 16.02 27C22.65 27 28 21.62 28 15S22.65 3 16.02 3zm0 21.7c-2.02 0-3.9-.58-5.5-1.58l-.4-.24-4.6.98.98-4.48-.26-.42a9.6 9.6 0 0 1-1.5-5.16c0-5.36 4.38-9.72 9.78-9.72 5.38 0 9.76 4.36 9.76 9.72 0 5.38-4.38 9.9-8.26 9.9zm5.36-7.3c-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15-.2.3-.77.97-.94 1.17-.17.2-.35.22-.65.07-.3-.15-1.26-.46-2.4-1.48-.89-.79-1.48-1.77-1.66-2.07-.17-.3-.02-.46.13-.61.14-.14.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.08-.15-.67-1.62-.92-2.22-.24-.58-.49-.5-.67-.51h-.57c-.2 0-.52.07-.79.37-.27.3-1.04 1.02-1.04 2.48 0 1.46 1.07 2.87 1.22 3.07.15.2 2.1 3.2 5.08 4.49.71.31 1.26.49 1.69.63.71.23 1.36.2 1.87.12.57-.09 1.76-.72 2.01-1.42.25-.7.25-1.3.17-1.42-.07-.12-.27-.2-.57-.35z"/></svg></a></div>
             </div>
           </div>
           <div class="side-list-item">
-            <div class="thumb"><img src="https://picsum.photos/seed/police-1/600/400" alt="" loading="lazy"><span class="cat-chip chip-crime">क्राईम न्युज</span></div>
+            <div class="thumb"><img src="https://picsum.photos/seed/police-1/600/400" alt="क्राईम न्युज - प्रातिनिधिक छायाचित्र" loading="lazy"><span class="cat-chip chip-crime">क्राईम न्युज</span></div>
             <div class="body">
               <h3><a href="#">लोणावळा ग्रामीण पोलिसांची कारवाई; अवैध जुगार अड्ड्यावर छापा</a></h3>
             <div class="meta"><span>१६ ऑगस्ट</span><span>·</span><span>लोणावळा</span><a class="wa-share" href="https://wa.me/?text=%E0%A4%B2%E0%A5%8B%E0%A4%A3%E0%A4%BE%E0%A4%B5%E0%A4%B3%E0%A4%BE%20%E0%A4%97%E0%A5%8D%E0%A4%B0%E0%A4%BE%E0%A4%AE%E0%A5%80%E0%A4%A3%20%E0%A4%AA%E0%A5%8B%E0%A4%B2%E0%A4%BF%E0%A4%B8%E0%A4%BE%E0%A4%82%E0%A4%9A%E0%A5%80%20%E0%A4%95%E0%A4%BE%E0%A4%B0%E0%A4%B5%E0%A4%BE%E0%A4%88%3B%20%E0%A4%85%E0%A4%B5%E0%A5%88%E0%A4%A7%20%E0%A4%9C%E0%A5%81%E0%A4%97%E0%A4%BE%E0%A4%B0%20%E0%A4%85%E0%A4%A1%E0%A5%8D%E0%A4%A1%E0%A5%8D%E0%A4%AF%E0%A4%BE%E0%A4%B5%E0%A4%B0%20%E0%A4%9B%E0%A4%BE%E0%A4%AA%E0%A4%BE%20%E2%80%94%20https%3A//mavalvarta.example.com/news" target="_blank" rel="noopener" aria-label="WhatsApp वर शेअर करा" title="WhatsApp वर शेअर करा"><svg viewBox="0 0 32 32" width="15" height="15" fill="currentColor"><path d="M16.02 3C9.4 3 4 8.38 4 15c0 2.34.63 4.53 1.72 6.42L4 29l7.78-1.65A11.9 11.9 0 0 0 16.02 27C22.65 27 28 21.62 28 15S22.65 3 16.02 3zm0 21.7c-2.02 0-3.9-.58-5.5-1.58l-.4-.24-4.6.98.98-4.48-.26-.42a9.6 9.6 0 0 1-1.5-5.16c0-5.36 4.38-9.72 9.78-9.72 5.38 0 9.76 4.36 9.76 9.72 0 5.38-4.38 9.9-8.26 9.9zm5.36-7.3c-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15-.2.3-.77.97-.94 1.17-.17.2-.35.22-.65.07-.3-.15-1.26-.46-2.4-1.48-.89-.79-1.48-1.77-1.66-2.07-.17-.3-.02-.46.13-.61.14-.14.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.08-.15-.67-1.62-.92-2.22-.24-.58-.49-.5-.67-.51h-.57c-.2 0-.52.07-.79.37-.27.3-1.04 1.02-1.04 2.48 0 1.46 1.07 2.87 1.22 3.07.15.2 2.1 3.2 5.08 4.49.71.31 1.26.49 1.69.63.71.23 1.36.2 1.87.12.57-.09 1.76-.72 2.01-1.42.25-.7.25-1.3.17-1.42-.07-.12-.27-.2-.57-.35z"/></svg></a></div>
             </div>
           </div>
           <div class="side-list-item">
-            <div class="thumb"><img src="https://picsum.photos/seed/city-1/600/400" alt="" loading="lazy"><span class="cat-chip chip-pcmc">पिंपरी-चिंचवड</span></div>
+            <div class="thumb"><img src="https://picsum.photos/seed/city-1/600/400" alt="पिंपरी-चिंचवड बातमी - प्रातिनिधिक छायाचित्र" loading="lazy"><span class="cat-chip chip-pcmc">पिंपरी-चिंचवड</span></div>
             <div class="body">
               <h3><a href="#">पिंपरी-चिंचवड महापालिकेतर्फे मान्सूनपूर्व नालेसफाईचा आढावा</a></h3>
             <div class="meta"><span>१६ ऑगस्ट</span><span>·</span><span>पिंपरी-चिंचवड</span><a class="wa-share" href="https://wa.me/?text=%E0%A4%AA%E0%A4%BF%E0%A4%82%E0%A4%AA%E0%A4%B0%E0%A5%80-%E0%A4%9A%E0%A4%BF%E0%A4%82%E0%A4%9A%E0%A4%B5%E0%A4%A1%20%E0%A4%AE%E0%A4%B9%E0%A4%BE%E0%A4%AA%E0%A4%BE%E0%A4%B2%E0%A4%BF%E0%A4%95%E0%A5%87%E0%A4%A4%E0%A4%B0%E0%A5%8D%E0%A4%AB%E0%A5%87%20%E0%A4%AE%E0%A4%BE%E0%A4%A8%E0%A5%8D%E0%A4%B8%E0%A5%82%E0%A4%A8%E0%A4%AA%E0%A5%82%E0%A4%B0%E0%A5%8D%E0%A4%B5%20%E0%A4%A8%E0%A4%BE%E0%A4%B2%E0%A5%87%E0%A4%B8%E0%A4%AB%E0%A4%BE%E0%A4%88%E0%A4%9A%E0%A4%BE%20%E0%A4%86%E0%A4%A2%E0%A4%BE%E0%A4%B5%E0%A4%BE%20%E2%80%94%20https%3A//mavalvarta.example.com/news" target="_blank" rel="noopener" aria-label="WhatsApp वर शेअर करा" title="WhatsApp वर शेअर करा"><svg viewBox="0 0 32 32" width="15" height="15" fill="currentColor"><path d="M16.02 3C9.4 3 4 8.38 4 15c0 2.34.63 4.53 1.72 6.42L4 29l7.78-1.65A11.9 11.9 0 0 0 16.02 27C22.65 27 28 21.62 28 15S22.65 3 16.02 3zm0 21.7c-2.02 0-3.9-.58-5.5-1.58l-.4-.24-4.6.98.98-4.48-.26-.42a9.6 9.6 0 0 1-1.5-5.16c0-5.36 4.38-9.72 9.78-9.72 5.38 0 9.76 4.36 9.76 9.72 0 5.38-4.38 9.9-8.26 9.9zm5.36-7.3c-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15-.2.3-.77.97-.94 1.17-.17.2-.35.22-.65.07-.3-.15-1.26-.46-2.4-1.48-.89-.79-1.48-1.77-1.66-2.07-.17-.3-.02-.46.13-.61.14-.14.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.08-.15-.67-1.62-.92-2.22-.24-.58-.49-.5-.67-.51h-.57c-.2 0-.52.07-.79.37-.27.3-1.04 1.02-1.04 2.48 0 1.46 1.07 2.87 1.22 3.07.15.2 2.1 3.2 5.08 4.49.71.31 1.26.49 1.69.63.71.23 1.36.2 1.87.12.57-.09 1.76-.72 2.01-1.42.25-.7.25-1.3.17-1.42-.07-.12-.27-.2-.57-.35z"/></svg></a></div>
             </div>
           </div>
           <div class="side-list-item">
-            <div class="thumb"><img src="https://picsum.photos/seed/misc-1/600/400" alt="" loading="lazy"><span class="cat-chip chip-other">इतर</span></div>
+            <div class="thumb"><img src="https://picsum.photos/seed/misc-1/600/400" alt="बातमी - प्रातिनिधिक छायाचित्र" loading="lazy"><span class="cat-chip chip-other">इतर</span></div>
             <div class="body">
               <h3><a href="#">कार्ला लेणी परिसरात पर्यटकांसाठी नवीन सुरक्षा कठडे उभारले</a></h3>
             <div class="meta"><span>१५ ऑगस्ट</span><span>·</span><span>कार्ला</span><a class="wa-share" href="https://wa.me/?text=%E0%A4%95%E0%A4%BE%E0%A4%B0%E0%A5%8D%E0%A4%B2%E0%A4%BE%20%E0%A4%B2%E0%A5%87%E0%A4%A3%E0%A5%80%20%E0%A4%AA%E0%A4%B0%E0%A4%BF%E0%A4%B8%E0%A4%B0%E0%A4%BE%E0%A4%A4%20%E0%A4%AA%E0%A4%B0%E0%A5%8D%E0%A4%AF%E0%A4%9F%E0%A4%95%E0%A4%BE%E0%A4%82%E0%A4%B8%E0%A4%BE%E0%A4%A0%E0%A5%80%20%E0%A4%A8%E0%A4%B5%E0%A5%80%E0%A4%A8%20%E0%A4%B8%E0%A5%81%E0%A4%B0%E0%A4%95%E0%A5%8D%E0%A4%B7%E0%A4%BE%20%E0%A4%95%E0%A4%A0%E0%A4%A1%E0%A5%87%20%E0%A4%89%E0%A4%AD%E0%A4%BE%E0%A4%B0%E0%A4%B2%E0%A5%87%20%E2%80%94%20https%3A//mavalvarta.example.com/news" target="_blank" rel="noopener" aria-label="WhatsApp वर शेअर करा" title="WhatsApp वर शेअर करा"><svg viewBox="0 0 32 32" width="15" height="15" fill="currentColor"><path d="M16.02 3C9.4 3 4 8.38 4 15c0 2.34.63 4.53 1.72 6.42L4 29l7.78-1.65A11.9 11.9 0 0 0 16.02 27C22.65 27 28 21.62 28 15S22.65 3 16.02 3zm0 21.7c-2.02 0-3.9-.58-5.5-1.58l-.4-.24-4.6.98.98-4.48-.26-.42a9.6 9.6 0 0 1-1.5-5.16c0-5.36 4.38-9.72 9.78-9.72 5.38 0 9.76 4.36 9.76 9.72 0 5.38-4.38 9.9-8.26 9.9zm5.36-7.3c-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15-.2.3-.77.97-.94 1.17-.17.2-.35.22-.65.07-.3-.15-1.26-.46-2.4-1.48-.89-.79-1.48-1.77-1.66-2.07-.17-.3-.02-.46.13-.61.14-.14.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.08-.15-.67-1.62-.92-2.22-.24-.58-.49-.5-.67-.51h-.57c-.2 0-.52.07-.79.37-.27.3-1.04 1.02-1.04 2.48 0 1.46 1.07 2.87 1.22 3.07.15.2 2.1 3.2 5.08 4.49.71.31 1.26.49 1.69.63.71.23 1.36.2 1.87.12.57-.09 1.76-.72 2.01-1.42.25-.7.25-1.3.17-1.42-.07-.12-.27-.2-.57-.35z"/></svg></a></div>
@@ -351,22 +381,22 @@
     </div>
     <div class="card-grid">
       <div class="card">
-        <div class="thumb"><img src="https://picsum.photos/seed/lonavala-hills-1/600/400" alt="" loading="lazy"><span class="cat-chip chip-lonavala">लोणावळा</span></div>
+        <div class="thumb"><img src="https://picsum.photos/seed/lonavala-hills-1/600/400" alt="लोणावळा बातमी - प्रातिनिधिक छायाचित्र" loading="lazy"><span class="cat-chip chip-lonavala">लोणावळा</span></div>
         <h3><a href="#">लोणावळा स्थानकावर नवीन सरकते जिने कार्यान्वित, प्रवाशांची सोय</a></h3>
             <div class="meta"><span>१७ ऑगस्ट</span><span>·</span><span>लोणावळा</span><a class="wa-share" href="https://wa.me/?text=%E0%A4%B2%E0%A5%8B%E0%A4%A3%E0%A4%BE%E0%A4%B5%E0%A4%B3%E0%A4%BE%20%E0%A4%B8%E0%A5%8D%E0%A4%A5%E0%A4%BE%E0%A4%A8%E0%A4%95%E0%A4%BE%E0%A4%B5%E0%A4%B0%20%E0%A4%A8%E0%A4%B5%E0%A5%80%E0%A4%A8%20%E0%A4%B8%E0%A4%B0%E0%A4%95%E0%A4%A4%E0%A5%87%20%E0%A4%9C%E0%A4%BF%E0%A4%A8%E0%A5%87%20%E0%A4%95%E0%A4%BE%E0%A4%B0%E0%A5%8D%E0%A4%AF%E0%A4%BE%E0%A4%A8%E0%A5%8D%E0%A4%B5%E0%A4%BF%E0%A4%A4%2C%20%E0%A4%AA%E0%A5%8D%E0%A4%B0%E0%A4%B5%E0%A4%BE%E0%A4%B6%E0%A4%BE%E0%A4%82%E0%A4%9A%E0%A5%80%20%E0%A4%B8%E0%A5%8B%E0%A4%AF%20%E2%80%94%20https%3A//mavalvarta.example.com/news" target="_blank" rel="noopener" aria-label="WhatsApp वर शेअर करा" title="WhatsApp वर शेअर करा"><svg viewBox="0 0 32 32" width="15" height="15" fill="currentColor"><path d="M16.02 3C9.4 3 4 8.38 4 15c0 2.34.63 4.53 1.72 6.42L4 29l7.78-1.65A11.9 11.9 0 0 0 16.02 27C22.65 27 28 21.62 28 15S22.65 3 16.02 3zm0 21.7c-2.02 0-3.9-.58-5.5-1.58l-.4-.24-4.6.98.98-4.48-.26-.42a9.6 9.6 0 0 1-1.5-5.16c0-5.36 4.38-9.72 9.78-9.72 5.38 0 9.76 4.36 9.76 9.72 0 5.38-4.38 9.9-8.26 9.9zm5.36-7.3c-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15-.2.3-.77.97-.94 1.17-.17.2-.35.22-.65.07-.3-.15-1.26-.46-2.4-1.48-.89-.79-1.48-1.77-1.66-2.07-.17-.3-.02-.46.13-.61.14-.14.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.08-.15-.67-1.62-.92-2.22-.24-.58-.49-.5-.67-.51h-.57c-.2 0-.52.07-.79.37-.27.3-1.04 1.02-1.04 2.48 0 1.46 1.07 2.87 1.22 3.07.15.2 2.1 3.2 5.08 4.49.71.31 1.26.49 1.69.63.71.23 1.36.2 1.87.12.57-.09 1.76-.72 2.01-1.42.25-.7.25-1.3.17-1.42-.07-.12-.27-.2-.57-.35z"/></svg></a></div>
       </div>
       <div class="card">
-        <div class="thumb"><img src="https://picsum.photos/seed/maval-farm-2/600/400" alt="" loading="lazy"><span class="cat-chip chip-maval">मावळ</span></div>
+        <div class="thumb"><img src="https://picsum.photos/seed/maval-farm-2/600/400" alt="मावळ बातमी - प्रातिनिधिक छायाचित्र" loading="lazy"><span class="cat-chip chip-maval">मावळ</span></div>
         <h3><a href="#">तळेगाव औद्योगिक वसाहतीत नवीन प्रकल्पामुळे स्थानिकांना रोजगार संधी</a></h3>
             <div class="meta"><span>१७ ऑगस्ट</span><span>·</span><span>मावळ</span><a class="wa-share" href="https://wa.me/?text=%E0%A4%A4%E0%A4%B3%E0%A5%87%E0%A4%97%E0%A4%BE%E0%A4%B5%20%E0%A4%94%E0%A4%A6%E0%A5%8D%E0%A4%AF%E0%A5%8B%E0%A4%97%E0%A4%BF%E0%A4%95%20%E0%A4%B5%E0%A4%B8%E0%A4%BE%E0%A4%B9%E0%A4%A4%E0%A5%80%E0%A4%A4%20%E0%A4%A8%E0%A4%B5%E0%A5%80%E0%A4%A8%20%E0%A4%AA%E0%A5%8D%E0%A4%B0%E0%A4%95%E0%A4%B2%E0%A5%8D%E0%A4%AA%E0%A4%BE%E0%A4%AE%E0%A5%81%E0%A4%B3%E0%A5%87%20%E0%A4%B8%E0%A5%8D%E0%A4%A5%E0%A4%BE%E0%A4%A8%E0%A4%BF%E0%A4%95%E0%A4%BE%E0%A4%82%E0%A4%A8%E0%A4%BE%20%E0%A4%B0%E0%A5%8B%E0%A4%9C%E0%A4%97%E0%A4%BE%E0%A4%B0%20%E0%A4%B8%E0%A4%82%E0%A4%A7%E0%A5%80%20%E2%80%94%20https%3A//mavalvarta.example.com/news" target="_blank" rel="noopener" aria-label="WhatsApp वर शेअर करा" title="WhatsApp वर शेअर करा"><svg viewBox="0 0 32 32" width="15" height="15" fill="currentColor"><path d="M16.02 3C9.4 3 4 8.38 4 15c0 2.34.63 4.53 1.72 6.42L4 29l7.78-1.65A11.9 11.9 0 0 0 16.02 27C22.65 27 28 21.62 28 15S22.65 3 16.02 3zm0 21.7c-2.02 0-3.9-.58-5.5-1.58l-.4-.24-4.6.98.98-4.48-.26-.42a9.6 9.6 0 0 1-1.5-5.16c0-5.36 4.38-9.72 9.78-9.72 5.38 0 9.76 4.36 9.76 9.72 0 5.38-4.38 9.9-8.26 9.9zm5.36-7.3c-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15-.2.3-.77.97-.94 1.17-.17.2-.35.22-.65.07-.3-.15-1.26-.46-2.4-1.48-.89-.79-1.48-1.77-1.66-2.07-.17-.3-.02-.46.13-.61.14-.14.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.08-.15-.67-1.62-.92-2.22-.24-.58-.49-.5-.67-.51h-.57c-.2 0-.52.07-.79.37-.27.3-1.04 1.02-1.04 2.48 0 1.46 1.07 2.87 1.22 3.07.15.2 2.1 3.2 5.08 4.49.71.31 1.26.49 1.69.63.71.23 1.36.2 1.87.12.57-.09 1.76-.72 2.01-1.42.25-.7.25-1.3.17-1.42-.07-.12-.27-.2-.57-.35z"/></svg></a></div>
       </div>
       <div class="card">
-        <div class="thumb"><img src="https://picsum.photos/seed/police-2/600/400" alt="" loading="lazy"><span class="cat-chip chip-crime">क्राईम न्युज</span></div>
+        <div class="thumb"><img src="https://picsum.photos/seed/police-2/600/400" alt="क्राईम न्युज - प्रातिनिधिक छायाचित्र" loading="lazy"><span class="cat-chip chip-crime">क्राईम न्युज</span></div>
         <h3><a href="#">मुंबई-पुणे एक्सप्रेसवेवर वाहतूक नियम मोडणाऱ्यांवर विशेष मोहीम</a></h3>
             <div class="meta"><span>१६ ऑगस्ट</span><span>·</span><span>खंडाळा</span><a class="wa-share" href="https://wa.me/?text=%E0%A4%AE%E0%A5%81%E0%A4%82%E0%A4%AC%E0%A4%88-%E0%A4%AA%E0%A5%81%E0%A4%A3%E0%A5%87%20%E0%A4%8F%E0%A4%95%E0%A5%8D%E0%A4%B8%E0%A4%AA%E0%A5%8D%E0%A4%B0%E0%A5%87%E0%A4%B8%E0%A4%B5%E0%A5%87%E0%A4%B5%E0%A4%B0%20%E0%A4%B5%E0%A4%BE%E0%A4%B9%E0%A4%A4%E0%A5%82%E0%A4%95%20%E0%A4%A8%E0%A4%BF%E0%A4%AF%E0%A4%AE%20%E0%A4%AE%E0%A5%8B%E0%A4%A1%E0%A4%A3%E0%A4%BE%E0%A4%B1%E0%A5%8D%E0%A4%AF%E0%A4%BE%E0%A4%82%E0%A4%B5%E0%A4%B0%20%E0%A4%B5%E0%A4%BF%E0%A4%B6%E0%A5%87%E0%A4%B7%20%E0%A4%AE%E0%A5%8B%E0%A4%B9%E0%A5%80%E0%A4%AE%20%E2%80%94%20https%3A//mavalvarta.example.com/news" target="_blank" rel="noopener" aria-label="WhatsApp वर शेअर करा" title="WhatsApp वर शेअर करा"><svg viewBox="0 0 32 32" width="15" height="15" fill="currentColor"><path d="M16.02 3C9.4 3 4 8.38 4 15c0 2.34.63 4.53 1.72 6.42L4 29l7.78-1.65A11.9 11.9 0 0 0 16.02 27C22.65 27 28 21.62 28 15S22.65 3 16.02 3zm0 21.7c-2.02 0-3.9-.58-5.5-1.58l-.4-.24-4.6.98.98-4.48-.26-.42a9.6 9.6 0 0 1-1.5-5.16c0-5.36 4.38-9.72 9.78-9.72 5.38 0 9.76 4.36 9.76 9.72 0 5.38-4.38 9.9-8.26 9.9zm5.36-7.3c-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15-.2.3-.77.97-.94 1.17-.17.2-.35.22-.65.07-.3-.15-1.26-.46-2.4-1.48-.89-.79-1.48-1.77-1.66-2.07-.17-.3-.02-.46.13-.61.14-.14.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.08-.15-.67-1.62-.92-2.22-.24-.58-.49-.5-.67-.51h-.57c-.2 0-.52.07-.79.37-.27.3-1.04 1.02-1.04 2.48 0 1.46 1.07 2.87 1.22 3.07.15.2 2.1 3.2 5.08 4.49.71.31 1.26.49 1.69.63.71.23 1.36.2 1.87.12.57-.09 1.76-.72 2.01-1.42.25-.7.25-1.3.17-1.42-.07-.12-.27-.2-.57-.35z"/></svg></a></div>
       </div>
       <div class="card">
-        <div class="thumb"><img src="https://picsum.photos/seed/misc-2/600/400" alt="" loading="lazy"><span class="cat-chip chip-other">इतर</span></div>
+        <div class="thumb"><img src="https://picsum.photos/seed/misc-2/600/400" alt="बातमी - प्रातिनिधिक छायाचित्र" loading="lazy"><span class="cat-chip chip-other">इतर</span></div>
         <h3><a href="#">आळंदी येथे इंद्रायणी नदी स्वच्छता अभियानास उत्स्फूर्त प्रतिसाद</a></h3>
             <div class="meta"><span>१५ ऑगस्ट</span><span>·</span><span>आळंदी</span><a class="wa-share" href="https://wa.me/?text=%E0%A4%86%E0%A4%B3%E0%A4%82%E0%A4%A6%E0%A5%80%20%E0%A4%AF%E0%A5%87%E0%A4%A5%E0%A5%87%20%E0%A4%87%E0%A4%82%E0%A4%A6%E0%A5%8D%E0%A4%B0%E0%A4%BE%E0%A4%AF%E0%A4%A3%E0%A5%80%20%E0%A4%A8%E0%A4%A6%E0%A5%80%20%E0%A4%B8%E0%A5%8D%E0%A4%B5%E0%A4%9A%E0%A5%8D%E0%A4%9B%E0%A4%A4%E0%A4%BE%20%E0%A4%85%E0%A4%AD%E0%A4%BF%E0%A4%AF%E0%A4%BE%E0%A4%A8%E0%A4%BE%E0%A4%B8%20%E0%A4%89%E0%A4%A4%E0%A5%8D%E0%A4%B8%E0%A5%8D%E0%A4%AB%E0%A5%82%E0%A4%B0%E0%A5%8D%E0%A4%A4%20%E0%A4%AA%E0%A5%8D%E0%A4%B0%E0%A4%A4%E0%A4%BF%E0%A4%B8%E0%A4%BE%E0%A4%A6%20%E2%80%94%20https%3A//mavalvarta.example.com/news" target="_blank" rel="noopener" aria-label="WhatsApp वर शेअर करा" title="WhatsApp वर शेअर करा"><svg viewBox="0 0 32 32" width="15" height="15" fill="currentColor"><path d="M16.02 3C9.4 3 4 8.38 4 15c0 2.34.63 4.53 1.72 6.42L4 29l7.78-1.65A11.9 11.9 0 0 0 16.02 27C22.65 27 28 21.62 28 15S22.65 3 16.02 3zm0 21.7c-2.02 0-3.9-.58-5.5-1.58l-.4-.24-4.6.98.98-4.48-.26-.42a9.6 9.6 0 0 1-1.5-5.16c0-5.36 4.38-9.72 9.78-9.72 5.38 0 9.76 4.36 9.76 9.72 0 5.38-4.38 9.9-8.26 9.9zm5.36-7.3c-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15-.2.3-.77.97-.94 1.17-.17.2-.35.22-.65.07-.3-.15-1.26-.46-2.4-1.48-.89-.79-1.48-1.77-1.66-2.07-.17-.3-.02-.46.13-.61.14-.14.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.08-.15-.67-1.62-.92-2.22-.24-.58-.49-.5-.67-.51h-.57c-.2 0-.52.07-.79.37-.27.3-1.04 1.02-1.04 2.48 0 1.46 1.07 2.87 1.22 3.07.15.2 2.1 3.2 5.08 4.49.71.31 1.26.49 1.69.63.71.23 1.36.2 1.87.12.57-.09 1.76-.72 2.01-1.42.25-.7.25-1.3.17-1.42-.07-.12-.27-.2-.57-.35z"/></svg></a></div>
       </div>
@@ -381,22 +411,22 @@
         </div>
         <div class="card-grid" style="grid-template-columns:repeat(2,1fr);">
           <div class="card">
-            <div class="thumb"><img src="https://picsum.photos/seed/lonavala-hills-2/600/400" alt="" loading="lazy"><span class="cat-chip chip-lonavala">लोणावळा</span></div>
+            <div class="thumb"><img src="https://picsum.photos/seed/lonavala-hills-2/600/400" alt="लोणावळा बातमी - प्रातिनिधिक छायाचित्र" loading="lazy"><span class="cat-chip chip-lonavala">लोणावळा</span></div>
             <h3><a href="#">भुशी डॅम परिसरात पर्यटकांच्या सुरक्षेसाठी अतिरिक्त जीवरक्षक तैनात</a></h3>
             <div class="meta"><span>१७ ऑगस्ट</span><a class="wa-share" href="https://wa.me/?text=%E0%A4%AD%E0%A5%81%E0%A4%B6%E0%A5%80%20%E0%A4%A1%E0%A5%85%E0%A4%AE%20%E0%A4%AA%E0%A4%B0%E0%A4%BF%E0%A4%B8%E0%A4%B0%E0%A4%BE%E0%A4%A4%20%E0%A4%AA%E0%A4%B0%E0%A5%8D%E0%A4%AF%E0%A4%9F%E0%A4%95%E0%A4%BE%E0%A4%82%E0%A4%9A%E0%A5%8D%E0%A4%AF%E0%A4%BE%20%E0%A4%B8%E0%A5%81%E0%A4%B0%E0%A4%95%E0%A5%8D%E0%A4%B7%E0%A5%87%E0%A4%B8%E0%A4%BE%E0%A4%A0%E0%A5%80%20%E0%A4%85%E0%A4%A4%E0%A4%BF%E0%A4%B0%E0%A4%BF%E0%A4%95%E0%A5%8D%E0%A4%A4%20%E0%A4%9C%E0%A5%80%E0%A4%B5%E0%A4%B0%E0%A4%95%E0%A5%8D%E0%A4%B7%E0%A4%95%20%E0%A4%A4%E0%A5%88%E0%A4%A8%E0%A4%BE%E0%A4%A4%20%E2%80%94%20https%3A//mavalvarta.example.com/news" target="_blank" rel="noopener" aria-label="WhatsApp वर शेअर करा" title="WhatsApp वर शेअर करा"><svg viewBox="0 0 32 32" width="15" height="15" fill="currentColor"><path d="M16.02 3C9.4 3 4 8.38 4 15c0 2.34.63 4.53 1.72 6.42L4 29l7.78-1.65A11.9 11.9 0 0 0 16.02 27C22.65 27 28 21.62 28 15S22.65 3 16.02 3zm0 21.7c-2.02 0-3.9-.58-5.5-1.58l-.4-.24-4.6.98.98-4.48-.26-.42a9.6 9.6 0 0 1-1.5-5.16c0-5.36 4.38-9.72 9.78-9.72 5.38 0 9.76 4.36 9.76 9.72 0 5.38-4.38 9.9-8.26 9.9zm5.36-7.3c-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15-.2.3-.77.97-.94 1.17-.17.2-.35.22-.65.07-.3-.15-1.26-.46-2.4-1.48-.89-.79-1.48-1.77-1.66-2.07-.17-.3-.02-.46.13-.61.14-.14.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.08-.15-.67-1.62-.92-2.22-.24-.58-.49-.5-.67-.51h-.57c-.2 0-.52.07-.79.37-.27.3-1.04 1.02-1.04 2.48 0 1.46 1.07 2.87 1.22 3.07.15.2 2.1 3.2 5.08 4.49.71.31 1.26.49 1.69.63.71.23 1.36.2 1.87.12.57-.09 1.76-.72 2.01-1.42.25-.7.25-1.3.17-1.42-.07-.12-.27-.2-.57-.35z"/></svg></a></div>
           </div>
           <div class="card">
-            <div class="thumb"><img src="https://picsum.photos/seed/lonavala-hills-3/600/400" alt="" loading="lazy"><span class="cat-chip chip-lonavala">लोणावळा</span></div>
+            <div class="thumb"><img src="https://picsum.photos/seed/lonavala-hills-3/600/400" alt="लोणावळा बातमी - प्रातिनिधिक छायाचित्र" loading="lazy"><span class="cat-chip chip-lonavala">लोणावळा</span></div>
             <h3><a href="#">लोणावळा नगरपरिषदेच्या सर्वसाधारण सभेत पाणीपुरवठा योजनेवर चर्चा</a></h3>
             <div class="meta"><span>१६ ऑगस्ट</span><a class="wa-share" href="https://wa.me/?text=%E0%A4%B2%E0%A5%8B%E0%A4%A3%E0%A4%BE%E0%A4%B5%E0%A4%B3%E0%A4%BE%20%E0%A4%A8%E0%A4%97%E0%A4%B0%E0%A4%AA%E0%A4%B0%E0%A4%BF%E0%A4%B7%E0%A4%A6%E0%A5%87%E0%A4%9A%E0%A5%8D%E0%A4%AF%E0%A4%BE%20%E0%A4%B8%E0%A4%B0%E0%A5%8D%E0%A4%B5%E0%A4%B8%E0%A4%BE%E0%A4%A7%E0%A4%BE%E0%A4%B0%E0%A4%A3%20%E0%A4%B8%E0%A4%AD%E0%A5%87%E0%A4%A4%20%E0%A4%AA%E0%A4%BE%E0%A4%A3%E0%A5%80%E0%A4%AA%E0%A5%81%E0%A4%B0%E0%A4%B5%E0%A4%A0%E0%A4%BE%20%E0%A4%AF%E0%A5%8B%E0%A4%9C%E0%A4%A8%E0%A5%87%E0%A4%B5%E0%A4%B0%20%E0%A4%9A%E0%A4%B0%E0%A5%8D%E0%A4%9A%E0%A4%BE%20%E2%80%94%20https%3A//mavalvarta.example.com/news" target="_blank" rel="noopener" aria-label="WhatsApp वर शेअर करा" title="WhatsApp वर शेअर करा"><svg viewBox="0 0 32 32" width="15" height="15" fill="currentColor"><path d="M16.02 3C9.4 3 4 8.38 4 15c0 2.34.63 4.53 1.72 6.42L4 29l7.78-1.65A11.9 11.9 0 0 0 16.02 27C22.65 27 28 21.62 28 15S22.65 3 16.02 3zm0 21.7c-2.02 0-3.9-.58-5.5-1.58l-.4-.24-4.6.98.98-4.48-.26-.42a9.6 9.6 0 0 1-1.5-5.16c0-5.36 4.38-9.72 9.78-9.72 5.38 0 9.76 4.36 9.76 9.72 0 5.38-4.38 9.9-8.26 9.9zm5.36-7.3c-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15-.2.3-.77.97-.94 1.17-.17.2-.35.22-.65.07-.3-.15-1.26-.46-2.4-1.48-.89-.79-1.48-1.77-1.66-2.07-.17-.3-.02-.46.13-.61.14-.14.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.08-.15-.67-1.62-.92-2.22-.24-.58-.49-.5-.67-.51h-.57c-.2 0-.52.07-.79.37-.27.3-1.04 1.02-1.04 2.48 0 1.46 1.07 2.87 1.22 3.07.15.2 2.1 3.2 5.08 4.49.71.31 1.26.49 1.69.63.71.23 1.36.2 1.87.12.57-.09 1.76-.72 2.01-1.42.25-.7.25-1.3.17-1.42-.07-.12-.27-.2-.57-.35z"/></svg></a></div>
           </div>
           <div class="card">
-            <div class="thumb"><img src="https://picsum.photos/seed/lonavala-hills-4/600/400" alt="" loading="lazy"><span class="cat-chip chip-lonavala">लोणावळा</span></div>
+            <div class="thumb"><img src="https://picsum.photos/seed/lonavala-hills-4/600/400" alt="लोणावळा बातमी - प्रातिनिधिक छायाचित्र" loading="lazy"><span class="cat-chip chip-lonavala">लोणावळा</span></div>
             <h3><a href="#">कुसगाव परिसरातील रस्ता दुरुस्तीचे काम अंतिम टप्प्यात</a></h3>
             <div class="meta"><span>१६ ऑगस्ट</span><a class="wa-share" href="https://wa.me/?text=%E0%A4%95%E0%A5%81%E0%A4%B8%E0%A4%97%E0%A4%BE%E0%A4%B5%20%E0%A4%AA%E0%A4%B0%E0%A4%BF%E0%A4%B8%E0%A4%B0%E0%A4%BE%E0%A4%A4%E0%A5%80%E0%A4%B2%20%E0%A4%B0%E0%A4%B8%E0%A5%8D%E0%A4%A4%E0%A4%BE%20%E0%A4%A6%E0%A5%81%E0%A4%B0%E0%A5%81%E0%A4%B8%E0%A5%8D%E0%A4%A4%E0%A5%80%E0%A4%9A%E0%A5%87%20%E0%A4%95%E0%A4%BE%E0%A4%AE%20%E0%A4%85%E0%A4%82%E0%A4%A4%E0%A4%BF%E0%A4%AE%20%E0%A4%9F%E0%A4%AA%E0%A5%8D%E0%A4%AA%E0%A5%8D%E0%A4%AF%E0%A4%BE%E0%A4%A4%20%E2%80%94%20https%3A//mavalvarta.example.com/news" target="_blank" rel="noopener" aria-label="WhatsApp वर शेअर करा" title="WhatsApp वर शेअर करा"><svg viewBox="0 0 32 32" width="15" height="15" fill="currentColor"><path d="M16.02 3C9.4 3 4 8.38 4 15c0 2.34.63 4.53 1.72 6.42L4 29l7.78-1.65A11.9 11.9 0 0 0 16.02 27C22.65 27 28 21.62 28 15S22.65 3 16.02 3zm0 21.7c-2.02 0-3.9-.58-5.5-1.58l-.4-.24-4.6.98.98-4.48-.26-.42a9.6 9.6 0 0 1-1.5-5.16c0-5.36 4.38-9.72 9.78-9.72 5.38 0 9.76 4.36 9.76 9.72 0 5.38-4.38 9.9-8.26 9.9zm5.36-7.3c-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15-.2.3-.77.97-.94 1.17-.17.2-.35.22-.65.07-.3-.15-1.26-.46-2.4-1.48-.89-.79-1.48-1.77-1.66-2.07-.17-.3-.02-.46.13-.61.14-.14.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.08-.15-.67-1.62-.92-2.22-.24-.58-.49-.5-.67-.51h-.57c-.2 0-.52.07-.79.37-.27.3-1.04 1.02-1.04 2.48 0 1.46 1.07 2.87 1.22 3.07.15.2 2.1 3.2 5.08 4.49.71.31 1.26.49 1.69.63.71.23 1.36.2 1.87.12.57-.09 1.76-.72 2.01-1.42.25-.7.25-1.3.17-1.42-.07-.12-.27-.2-.57-.35z"/></svg></a></div>
           </div>
           <div class="card">
-            <div class="thumb"><img src="https://picsum.photos/seed/lonavala-hills-5/600/400" alt="" loading="lazy"><span class="cat-chip chip-lonavala">लोणावळा</span></div>
+            <div class="thumb"><img src="https://picsum.photos/seed/lonavala-hills-5/600/400" alt="लोणावळा बातमी - प्रातिनिधिक छायाचित्र" loading="lazy"><span class="cat-chip chip-lonavala">लोणावळा</span></div>
             <h3><a href="#">वरसोली येथे ग्रामपंचायतीतर्फे वृक्षारोपण मोहीम उत्साहात संपन्न</a></h3>
             <div class="meta"><span>१५ ऑगस्ट</span><a class="wa-share" href="https://wa.me/?text=%E0%A4%B5%E0%A4%B0%E0%A4%B8%E0%A5%8B%E0%A4%B2%E0%A5%80%20%E0%A4%AF%E0%A5%87%E0%A4%A5%E0%A5%87%20%E0%A4%97%E0%A5%8D%E0%A4%B0%E0%A4%BE%E0%A4%AE%E0%A4%AA%E0%A4%82%E0%A4%9A%E0%A4%BE%E0%A4%AF%E0%A4%A4%E0%A5%80%E0%A4%A4%E0%A4%B0%E0%A5%8D%E0%A4%AB%E0%A5%87%20%E0%A4%B5%E0%A5%83%E0%A4%95%E0%A5%8D%E0%A4%B7%E0%A4%BE%E0%A4%B0%E0%A5%8B%E0%A4%AA%E0%A4%A3%20%E0%A4%AE%E0%A5%8B%E0%A4%B9%E0%A5%80%E0%A4%AE%20%E0%A4%89%E0%A4%A4%E0%A5%8D%E0%A4%B8%E0%A4%BE%E0%A4%B9%E0%A4%BE%E0%A4%A4%20%E0%A4%B8%E0%A4%82%E0%A4%AA%E0%A4%A8%E0%A5%8D%E0%A4%A8%20%E2%80%94%20https%3A//mavalvarta.example.com/news" target="_blank" rel="noopener" aria-label="WhatsApp वर शेअर करा" title="WhatsApp वर शेअर करा"><svg viewBox="0 0 32 32" width="15" height="15" fill="currentColor"><path d="M16.02 3C9.4 3 4 8.38 4 15c0 2.34.63 4.53 1.72 6.42L4 29l7.78-1.65A11.9 11.9 0 0 0 16.02 27C22.65 27 28 21.62 28 15S22.65 3 16.02 3zm0 21.7c-2.02 0-3.9-.58-5.5-1.58l-.4-.24-4.6.98.98-4.48-.26-.42a9.6 9.6 0 0 1-1.5-5.16c0-5.36 4.38-9.72 9.78-9.72 5.38 0 9.76 4.36 9.76 9.72 0 5.38-4.38 9.9-8.26 9.9zm5.36-7.3c-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15-.2.3-.77.97-.94 1.17-.17.2-.35.22-.65.07-.3-.15-1.26-.46-2.4-1.48-.89-.79-1.48-1.77-1.66-2.07-.17-.3-.02-.46.13-.61.14-.14.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.08-.15-.67-1.62-.92-2.22-.24-.58-.49-.5-.67-.51h-.57c-.2 0-.52.07-.79.37-.27.3-1.04 1.02-1.04 2.48 0 1.46 1.07 2.87 1.22 3.07.15.2 2.1 3.2 5.08 4.49.71.31 1.26.49 1.69.63.71.23 1.36.2 1.87.12.57-.09 1.76-.72 2.01-1.42.25-.7.25-1.3.17-1.42-.07-.12-.27-.2-.57-.35z"/></svg></a></div>
           </div>
@@ -436,22 +466,22 @@
       </div>
       <div class="card-grid">
         <div class="card">
-          <div class="thumb"><img src="https://picsum.photos/seed/maval-farm-3/600/400" alt="" loading="lazy"><span class="cat-chip chip-maval">मावळ</span></div>
+          <div class="thumb"><img src="https://picsum.photos/seed/maval-farm-3/600/400" alt="मावळ बातमी - प्रातिनिधिक छायाचित्र" loading="lazy"><span class="cat-chip chip-maval">मावळ</span></div>
           <h3><a href="#">तळेगाव दाभाडे येथे शेतकरी मेळाव्यात आधुनिक शेती तंत्रज्ञानाची माहिती</a></h3>
             <div class="meta"><span>१६ ऑगस्ट</span><a class="wa-share" href="https://wa.me/?text=%E0%A4%A4%E0%A4%B3%E0%A5%87%E0%A4%97%E0%A4%BE%E0%A4%B5%20%E0%A4%A6%E0%A4%BE%E0%A4%AD%E0%A4%BE%E0%A4%A1%E0%A5%87%20%E0%A4%AF%E0%A5%87%E0%A4%A5%E0%A5%87%20%E0%A4%B6%E0%A5%87%E0%A4%A4%E0%A4%95%E0%A4%B0%E0%A5%80%20%E0%A4%AE%E0%A5%87%E0%A4%B3%E0%A4%BE%E0%A4%B5%E0%A5%8D%E0%A4%AF%E0%A4%BE%E0%A4%A4%20%E0%A4%86%E0%A4%A7%E0%A5%81%E0%A4%A8%E0%A4%BF%E0%A4%95%20%E0%A4%B6%E0%A5%87%E0%A4%A4%E0%A5%80%20%E0%A4%A4%E0%A4%82%E0%A4%A4%E0%A5%8D%E0%A4%B0%E0%A4%9C%E0%A5%8D%E0%A4%9E%E0%A4%BE%E0%A4%A8%E0%A4%BE%E0%A4%9A%E0%A5%80%20%E0%A4%AE%E0%A4%BE%E0%A4%B9%E0%A4%BF%E0%A4%A4%E0%A5%80%20%E2%80%94%20https%3A//mavalvarta.example.com/news" target="_blank" rel="noopener" aria-label="WhatsApp वर शेअर करा" title="WhatsApp वर शेअर करा"><svg viewBox="0 0 32 32" width="15" height="15" fill="currentColor"><path d="M16.02 3C9.4 3 4 8.38 4 15c0 2.34.63 4.53 1.72 6.42L4 29l7.78-1.65A11.9 11.9 0 0 0 16.02 27C22.65 27 28 21.62 28 15S22.65 3 16.02 3zm0 21.7c-2.02 0-3.9-.58-5.5-1.58l-.4-.24-4.6.98.98-4.48-.26-.42a9.6 9.6 0 0 1-1.5-5.16c0-5.36 4.38-9.72 9.78-9.72 5.38 0 9.76 4.36 9.76 9.72 0 5.38-4.38 9.9-8.26 9.9zm5.36-7.3c-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15-.2.3-.77.97-.94 1.17-.17.2-.35.22-.65.07-.3-.15-1.26-.46-2.4-1.48-.89-.79-1.48-1.77-1.66-2.07-.17-.3-.02-.46.13-.61.14-.14.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.08-.15-.67-1.62-.92-2.22-.24-.58-.49-.5-.67-.51h-.57c-.2 0-.52.07-.79.37-.27.3-1.04 1.02-1.04 2.48 0 1.46 1.07 2.87 1.22 3.07.15.2 2.1 3.2 5.08 4.49.71.31 1.26.49 1.69.63.71.23 1.36.2 1.87.12.57-.09 1.76-.72 2.01-1.42.25-.7.25-1.3.17-1.42-.07-.12-.27-.2-.57-.35z"/></svg></a></div>
         </div>
         <div class="card">
-          <div class="thumb"><img src="https://picsum.photos/seed/maval-farm-4/600/400" alt="" loading="lazy"><span class="cat-chip chip-maval">मावळ</span></div>
+          <div class="thumb"><img src="https://picsum.photos/seed/maval-farm-4/600/400" alt="मावळ बातमी - प्रातिनिधिक छायाचित्र" loading="lazy"><span class="cat-chip chip-maval">मावळ</span></div>
           <h3><a href="#">पवनानगर परिसरात आरोग्य शिबिराचे आयोजन, शेकडो नागरिकांची तपासणी</a></h3>
             <div class="meta"><span>१५ ऑगस्ट</span><a class="wa-share" href="https://wa.me/?text=%E0%A4%AA%E0%A4%B5%E0%A4%A8%E0%A4%BE%E0%A4%A8%E0%A4%97%E0%A4%B0%20%E0%A4%AA%E0%A4%B0%E0%A4%BF%E0%A4%B8%E0%A4%B0%E0%A4%BE%E0%A4%A4%20%E0%A4%86%E0%A4%B0%E0%A5%8B%E0%A4%97%E0%A5%8D%E0%A4%AF%20%E0%A4%B6%E0%A4%BF%E0%A4%AC%E0%A4%BF%E0%A4%B0%E0%A4%BE%E0%A4%9A%E0%A5%87%20%E0%A4%86%E0%A4%AF%E0%A5%8B%E0%A4%9C%E0%A4%A8%2C%20%E0%A4%B6%E0%A5%87%E0%A4%95%E0%A4%A1%E0%A5%8B%20%E0%A4%A8%E0%A4%BE%E0%A4%97%E0%A4%B0%E0%A4%BF%E0%A4%95%E0%A4%BE%E0%A4%82%E0%A4%9A%E0%A5%80%20%E0%A4%A4%E0%A4%AA%E0%A4%BE%E0%A4%B8%E0%A4%A3%E0%A5%80%20%E2%80%94%20https%3A//mavalvarta.example.com/news" target="_blank" rel="noopener" aria-label="WhatsApp वर शेअर करा" title="WhatsApp वर शेअर करा"><svg viewBox="0 0 32 32" width="15" height="15" fill="currentColor"><path d="M16.02 3C9.4 3 4 8.38 4 15c0 2.34.63 4.53 1.72 6.42L4 29l7.78-1.65A11.9 11.9 0 0 0 16.02 27C22.65 27 28 21.62 28 15S22.65 3 16.02 3zm0 21.7c-2.02 0-3.9-.58-5.5-1.58l-.4-.24-4.6.98.98-4.48-.26-.42a9.6 9.6 0 0 1-1.5-5.16c0-5.36 4.38-9.72 9.78-9.72 5.38 0 9.76 4.36 9.76 9.72 0 5.38-4.38 9.9-8.26 9.9zm5.36-7.3c-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15-.2.3-.77.97-.94 1.17-.17.2-.35.22-.65.07-.3-.15-1.26-.46-2.4-1.48-.89-.79-1.48-1.77-1.66-2.07-.17-.3-.02-.46.13-.61.14-.14.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.08-.15-.67-1.62-.92-2.22-.24-.58-.49-.5-.67-.51h-.57c-.2 0-.52.07-.79.37-.27.3-1.04 1.02-1.04 2.48 0 1.46 1.07 2.87 1.22 3.07.15.2 2.1 3.2 5.08 4.49.71.31 1.26.49 1.69.63.71.23 1.36.2 1.87.12.57-.09 1.76-.72 2.01-1.42.25-.7.25-1.3.17-1.42-.07-.12-.27-.2-.57-.35z"/></svg></a></div>
         </div>
         <div class="card">
-          <div class="thumb"><img src="https://picsum.photos/seed/maval-farm-1/600/400" alt="" loading="lazy"><span class="cat-chip chip-maval">मावळ</span></div>
+          <div class="thumb"><img src="https://picsum.photos/seed/maval-farm-1/600/400" alt="मावळ बातमी - प्रातिनिधिक छायाचित्र" loading="lazy"><span class="cat-chip chip-maval">मावळ</span></div>
           <h3><a href="#">वडगाव मावळ बाजारपेठेत स्वातंत्र्यदिनानिमित्त विशेष सजावट</a></h3>
             <div class="meta"><span>१५ ऑगस्ट</span><a class="wa-share" href="https://wa.me/?text=%E0%A4%B5%E0%A4%A1%E0%A4%97%E0%A4%BE%E0%A4%B5%20%E0%A4%AE%E0%A4%BE%E0%A4%B5%E0%A4%B3%20%E0%A4%AC%E0%A4%BE%E0%A4%9C%E0%A4%BE%E0%A4%B0%E0%A4%AA%E0%A5%87%E0%A4%A0%E0%A5%87%E0%A4%A4%20%E0%A4%B8%E0%A5%8D%E0%A4%B5%E0%A4%BE%E0%A4%A4%E0%A4%82%E0%A4%A4%E0%A5%8D%E0%A4%B0%E0%A5%8D%E0%A4%AF%E0%A4%A6%E0%A4%BF%E0%A4%A8%E0%A4%BE%E0%A4%A8%E0%A4%BF%E0%A4%AE%E0%A4%BF%E0%A4%A4%E0%A5%8D%E0%A4%A4%20%E0%A4%B5%E0%A4%BF%E0%A4%B6%E0%A5%87%E0%A4%B7%20%E0%A4%B8%E0%A4%9C%E0%A4%BE%E0%A4%B5%E0%A4%9F%20%E2%80%94%20https%3A//mavalvarta.example.com/news" target="_blank" rel="noopener" aria-label="WhatsApp वर शेअर करा" title="WhatsApp वर शेअर करा"><svg viewBox="0 0 32 32" width="15" height="15" fill="currentColor"><path d="M16.02 3C9.4 3 4 8.38 4 15c0 2.34.63 4.53 1.72 6.42L4 29l7.78-1.65A11.9 11.9 0 0 0 16.02 27C22.65 27 28 21.62 28 15S22.65 3 16.02 3zm0 21.7c-2.02 0-3.9-.58-5.5-1.58l-.4-.24-4.6.98.98-4.48-.26-.42a9.6 9.6 0 0 1-1.5-5.16c0-5.36 4.38-9.72 9.78-9.72 5.38 0 9.76 4.36 9.76 9.72 0 5.38-4.38 9.9-8.26 9.9zm5.36-7.3c-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15-.2.3-.77.97-.94 1.17-.17.2-.35.22-.65.07-.3-.15-1.26-.46-2.4-1.48-.89-.79-1.48-1.77-1.66-2.07-.17-.3-.02-.46.13-.61.14-.14.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.08-.15-.67-1.62-.92-2.22-.24-.58-.49-.5-.67-.51h-.57c-.2 0-.52.07-.79.37-.27.3-1.04 1.02-1.04 2.48 0 1.46 1.07 2.87 1.22 3.07.15.2 2.1 3.2 5.08 4.49.71.31 1.26.49 1.69.63.71.23 1.36.2 1.87.12.57-.09 1.76-.72 2.01-1.42.25-.7.25-1.3.17-1.42-.07-.12-.27-.2-.57-.35z"/></svg></a></div>
         </div>
         <div class="card">
-          <div class="thumb"><img src="https://picsum.photos/seed/maval-farm-2/600/400" alt="" loading="lazy"><span class="cat-chip chip-maval">मावळ</span></div>
+          <div class="thumb"><img src="https://picsum.photos/seed/maval-farm-2/600/400" alt="मावळ बातमी - प्रातिनिधिक छायाचित्र" loading="lazy"><span class="cat-chip chip-maval">मावळ</span></div>
           <h3><a href="#">कामशेत परिसरातील पूल दुरुस्तीच्या कामाला अखेर सुरुवात</a></h3>
             <div class="meta"><span>१४ ऑगस्ट</span><a class="wa-share" href="https://wa.me/?text=%E0%A4%95%E0%A4%BE%E0%A4%AE%E0%A4%B6%E0%A5%87%E0%A4%A4%20%E0%A4%AA%E0%A4%B0%E0%A4%BF%E0%A4%B8%E0%A4%B0%E0%A4%BE%E0%A4%A4%E0%A5%80%E0%A4%B2%20%E0%A4%AA%E0%A5%82%E0%A4%B2%20%E0%A4%A6%E0%A5%81%E0%A4%B0%E0%A5%81%E0%A4%B8%E0%A5%8D%E0%A4%A4%E0%A5%80%E0%A4%9A%E0%A5%8D%E0%A4%AF%E0%A4%BE%20%E0%A4%95%E0%A4%BE%E0%A4%AE%E0%A4%BE%E0%A4%B2%E0%A4%BE%20%E0%A4%85%E0%A4%96%E0%A5%87%E0%A4%B0%20%E0%A4%B8%E0%A5%81%E0%A4%B0%E0%A5%81%E0%A4%B5%E0%A4%BE%E0%A4%A4%20%E2%80%94%20https%3A//mavalvarta.example.com/news" target="_blank" rel="noopener" aria-label="WhatsApp वर शेअर करा" title="WhatsApp वर शेअर करा"><svg viewBox="0 0 32 32" width="15" height="15" fill="currentColor"><path d="M16.02 3C9.4 3 4 8.38 4 15c0 2.34.63 4.53 1.72 6.42L4 29l7.78-1.65A11.9 11.9 0 0 0 16.02 27C22.65 27 28 21.62 28 15S22.65 3 16.02 3zm0 21.7c-2.02 0-3.9-.58-5.5-1.58l-.4-.24-4.6.98.98-4.48-.26-.42a9.6 9.6 0 0 1-1.5-5.16c0-5.36 4.38-9.72 9.78-9.72 5.38 0 9.76 4.36 9.76 9.72 0 5.38-4.38 9.9-8.26 9.9zm5.36-7.3c-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15-.2.3-.77.97-.94 1.17-.17.2-.35.22-.65.07-.3-.15-1.26-.46-2.4-1.48-.89-.79-1.48-1.77-1.66-2.07-.17-.3-.02-.46.13-.61.14-.14.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.08-.15-.67-1.62-.92-2.22-.24-.58-.49-.5-.67-.51h-.57c-.2 0-.52.07-.79.37-.27.3-1.04 1.02-1.04 2.48 0 1.46 1.07 2.87 1.22 3.07.15.2 2.1 3.2 5.08 4.49.71.31 1.26.49 1.69.63.71.23 1.36.2 1.87.12.57-.09 1.76-.72 2.01-1.42.25-.7.25-1.3.17-1.42-.07-.12-.27-.2-.57-.35z"/></svg></a></div>
         </div>
@@ -467,12 +497,12 @@
         </div>
         <div class="card-grid" style="grid-template-columns:repeat(2,1fr);">
           <div class="card">
-            <div class="thumb"><img src="https://picsum.photos/seed/police-3/600/400" alt="" loading="lazy"><span class="cat-chip chip-crime">क्राईम न्युज</span></div>
+            <div class="thumb"><img src="https://picsum.photos/seed/police-3/600/400" alt="क्राईम न्युज - प्रातिनिधिक छायाचित्र" loading="lazy"><span class="cat-chip chip-crime">क्राईम न्युज</span></div>
             <h3><a href="#">लोणावळा शहर पोलिसांची मोहीम; वाहतूक नियम मोडणाऱ्या ४० वाहनांवर कारवाई</a></h3>
             <div class="meta"><span>१६ ऑगस्ट</span><a class="wa-share" href="https://wa.me/?text=%E0%A4%B2%E0%A5%8B%E0%A4%A3%E0%A4%BE%E0%A4%B5%E0%A4%B3%E0%A4%BE%20%E0%A4%B6%E0%A4%B9%E0%A4%B0%20%E0%A4%AA%E0%A5%8B%E0%A4%B2%E0%A4%BF%E0%A4%B8%E0%A4%BE%E0%A4%82%E0%A4%9A%E0%A5%80%20%E0%A4%AE%E0%A5%8B%E0%A4%B9%E0%A5%80%E0%A4%AE%3B%20%E0%A4%B5%E0%A4%BE%E0%A4%B9%E0%A4%A4%E0%A5%82%E0%A4%95%20%E0%A4%A8%E0%A4%BF%E0%A4%AF%E0%A4%AE%20%E0%A4%AE%E0%A5%8B%E0%A4%A1%E0%A4%A3%E0%A4%BE%E0%A4%B1%E0%A5%8D%E0%A4%AF%E0%A4%BE%20%E0%A5%AA%E0%A5%A6%20%E0%A4%B5%E0%A4%BE%E0%A4%B9%E0%A4%A8%E0%A4%BE%E0%A4%82%E0%A4%B5%E0%A4%B0%20%E0%A4%95%E0%A4%BE%E0%A4%B0%E0%A4%B5%E0%A4%BE%E0%A4%88%20%E2%80%94%20https%3A//mavalvarta.example.com/news" target="_blank" rel="noopener" aria-label="WhatsApp वर शेअर करा" title="WhatsApp वर शेअर करा"><svg viewBox="0 0 32 32" width="15" height="15" fill="currentColor"><path d="M16.02 3C9.4 3 4 8.38 4 15c0 2.34.63 4.53 1.72 6.42L4 29l7.78-1.65A11.9 11.9 0 0 0 16.02 27C22.65 27 28 21.62 28 15S22.65 3 16.02 3zm0 21.7c-2.02 0-3.9-.58-5.5-1.58l-.4-.24-4.6.98.98-4.48-.26-.42a9.6 9.6 0 0 1-1.5-5.16c0-5.36 4.38-9.72 9.78-9.72 5.38 0 9.76 4.36 9.76 9.72 0 5.38-4.38 9.9-8.26 9.9zm5.36-7.3c-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15-.2.3-.77.97-.94 1.17-.17.2-.35.22-.65.07-.3-.15-1.26-.46-2.4-1.48-.89-.79-1.48-1.77-1.66-2.07-.17-.3-.02-.46.13-.61.14-.14.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.08-.15-.67-1.62-.92-2.22-.24-.58-.49-.5-.67-.51h-.57c-.2 0-.52.07-.79.37-.27.3-1.04 1.02-1.04 2.48 0 1.46 1.07 2.87 1.22 3.07.15.2 2.1 3.2 5.08 4.49.71.31 1.26.49 1.69.63.71.23 1.36.2 1.87.12.57-.09 1.76-.72 2.01-1.42.25-.7.25-1.3.17-1.42-.07-.12-.27-.2-.57-.35z"/></svg></a></div>
           </div>
           <div class="card">
-            <div class="thumb"><img src="https://picsum.photos/seed/police-1/600/400" alt="" loading="lazy"><span class="cat-chip chip-crime">क्राईम न्युज</span></div>
+            <div class="thumb"><img src="https://picsum.photos/seed/police-1/600/400" alt="क्राईम न्युज - प्रातिनिधिक छायाचित्र" loading="lazy"><span class="cat-chip chip-crime">क्राईम न्युज</span></div>
             <h3><a href="#">मावळ तालुक्यात सायबर फसवणुकीबाबत नागरिकांना पोलिसांचे जागृती अभियान</a></h3>
             <div class="meta"><span>१४ ऑगस्ट</span><a class="wa-share" href="https://wa.me/?text=%E0%A4%AE%E0%A4%BE%E0%A4%B5%E0%A4%B3%20%E0%A4%A4%E0%A4%BE%E0%A4%B2%E0%A5%81%E0%A4%95%E0%A5%8D%E0%A4%AF%E0%A4%BE%E0%A4%A4%20%E0%A4%B8%E0%A4%BE%E0%A4%AF%E0%A4%AC%E0%A4%B0%20%E0%A4%AB%E0%A4%B8%E0%A4%B5%E0%A4%A3%E0%A5%81%E0%A4%95%E0%A5%80%E0%A4%AC%E0%A4%BE%E0%A4%AC%E0%A4%A4%20%E0%A4%A8%E0%A4%BE%E0%A4%97%E0%A4%B0%E0%A4%BF%E0%A4%95%E0%A4%BE%E0%A4%82%E0%A4%A8%E0%A4%BE%20%E0%A4%AA%E0%A5%8B%E0%A4%B2%E0%A4%BF%E0%A4%B8%E0%A4%BE%E0%A4%82%E0%A4%9A%E0%A5%87%20%E0%A4%9C%E0%A4%BE%E0%A4%97%E0%A5%83%E0%A4%A4%E0%A5%80%20%E0%A4%85%E0%A4%AD%E0%A4%BF%E0%A4%AF%E0%A4%BE%E0%A4%A8%20%E2%80%94%20https%3A//mavalvarta.example.com/news" target="_blank" rel="noopener" aria-label="WhatsApp वर शेअर करा" title="WhatsApp वर शेअर करा"><svg viewBox="0 0 32 32" width="15" height="15" fill="currentColor"><path d="M16.02 3C9.4 3 4 8.38 4 15c0 2.34.63 4.53 1.72 6.42L4 29l7.78-1.65A11.9 11.9 0 0 0 16.02 27C22.65 27 28 21.62 28 15S22.65 3 16.02 3zm0 21.7c-2.02 0-3.9-.58-5.5-1.58l-.4-.24-4.6.98.98-4.48-.26-.42a9.6 9.6 0 0 1-1.5-5.16c0-5.36 4.38-9.72 9.78-9.72 5.38 0 9.76 4.36 9.76 9.72 0 5.38-4.38 9.9-8.26 9.9zm5.36-7.3c-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15-.2.3-.77.97-.94 1.17-.17.2-.35.22-.65.07-.3-.15-1.26-.46-2.4-1.48-.89-.79-1.48-1.77-1.66-2.07-.17-.3-.02-.46.13-.61.14-.14.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.08-.15-.67-1.62-.92-2.22-.24-.58-.49-.5-.67-.51h-.57c-.2 0-.52.07-.79.37-.27.3-1.04 1.02-1.04 2.48 0 1.46 1.07 2.87 1.22 3.07.15.2 2.1 3.2 5.08 4.49.71.31 1.26.49 1.69.63.71.23 1.36.2 1.87.12.57-.09 1.76-.72 2.01-1.42.25-.7.25-1.3.17-1.42-.07-.12-.27-.2-.57-.35z"/></svg></a></div>
           </div>
@@ -485,14 +515,14 @@
         </div>
         <div class="side-list" style="margin-top:0;border-top:none;padding-top:0;">
           <div class="side-list-item">
-            <div class="thumb"><img src="https://picsum.photos/seed/city-2/600/400" alt="" loading="lazy"><span class="cat-chip chip-pcmc">PCMC</span></div>
+            <div class="thumb"><img src="https://picsum.photos/seed/city-2/600/400" alt="पिंपरी-चिंचवड बातमी - प्रातिनिधिक छायाचित्र" loading="lazy"><span class="cat-chip chip-pcmc">PCMC</span></div>
             <div class="body">
               <h3><a href="#">पिंपरी-चिंचवडमध्ये स्वातंत्र्यदिनी रक्तदान शिबिराचे आयोजन</a></h3>
             <div class="meta"><span>१५ ऑगस्ट</span><a class="wa-share" href="https://wa.me/?text=%E0%A4%AA%E0%A4%BF%E0%A4%82%E0%A4%AA%E0%A4%B0%E0%A5%80-%E0%A4%9A%E0%A4%BF%E0%A4%82%E0%A4%9A%E0%A4%B5%E0%A4%A1%E0%A4%AE%E0%A4%A7%E0%A5%8D%E0%A4%AF%E0%A5%87%20%E0%A4%B8%E0%A5%8D%E0%A4%B5%E0%A4%BE%E0%A4%A4%E0%A4%82%E0%A4%A4%E0%A5%8D%E0%A4%B0%E0%A5%8D%E0%A4%AF%E0%A4%A6%E0%A4%BF%E0%A4%A8%E0%A5%80%20%E0%A4%B0%E0%A4%95%E0%A5%8D%E0%A4%A4%E0%A4%A6%E0%A4%BE%E0%A4%A8%20%E0%A4%B6%E0%A4%BF%E0%A4%AC%E0%A4%BF%E0%A4%B0%E0%A4%BE%E0%A4%9A%E0%A5%87%20%E0%A4%86%E0%A4%AF%E0%A5%8B%E0%A4%9C%E0%A4%A8%20%E2%80%94%20https%3A//mavalvarta.example.com/news" target="_blank" rel="noopener" aria-label="WhatsApp वर शेअर करा" title="WhatsApp वर शेअर करा"><svg viewBox="0 0 32 32" width="15" height="15" fill="currentColor"><path d="M16.02 3C9.4 3 4 8.38 4 15c0 2.34.63 4.53 1.72 6.42L4 29l7.78-1.65A11.9 11.9 0 0 0 16.02 27C22.65 27 28 21.62 28 15S22.65 3 16.02 3zm0 21.7c-2.02 0-3.9-.58-5.5-1.58l-.4-.24-4.6.98.98-4.48-.26-.42a9.6 9.6 0 0 1-1.5-5.16c0-5.36 4.38-9.72 9.78-9.72 5.38 0 9.76 4.36 9.76 9.72 0 5.38-4.38 9.9-8.26 9.9zm5.36-7.3c-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15-.2.3-.77.97-.94 1.17-.17.2-.35.22-.65.07-.3-.15-1.26-.46-2.4-1.48-.89-.79-1.48-1.77-1.66-2.07-.17-.3-.02-.46.13-.61.14-.14.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.08-.15-.67-1.62-.92-2.22-.24-.58-.49-.5-.67-.51h-.57c-.2 0-.52.07-.79.37-.27.3-1.04 1.02-1.04 2.48 0 1.46 1.07 2.87 1.22 3.07.15.2 2.1 3.2 5.08 4.49.71.31 1.26.49 1.69.63.71.23 1.36.2 1.87.12.57-.09 1.76-.72 2.01-1.42.25-.7.25-1.3.17-1.42-.07-.12-.27-.2-.57-.35z"/></svg></a></div>
             </div>
           </div>
           <div class="side-list-item">
-            <div class="thumb"><img src="https://picsum.photos/seed/city-3/600/400" alt="" loading="lazy"><span class="cat-chip chip-pcmc">PCMC</span></div>
+            <div class="thumb"><img src="https://picsum.photos/seed/city-3/600/400" alt="पिंपरी-चिंचवड बातमी - प्रातिनिधिक छायाचित्र" loading="lazy"><span class="cat-chip chip-pcmc">PCMC</span></div>
             <div class="body">
               <h3><a href="#">महापालिकेच्या नवीन उद्यानाचे लोकार्पण, नागरिकांचा उत्स्फूर्त प्रतिसाद</a></h3>
             <div class="meta"><span>१४ ऑगस्ट</span><a class="wa-share" href="https://wa.me/?text=%E0%A4%AE%E0%A4%B9%E0%A4%BE%E0%A4%AA%E0%A4%BE%E0%A4%B2%E0%A4%BF%E0%A4%95%E0%A5%87%E0%A4%9A%E0%A5%8D%E0%A4%AF%E0%A4%BE%20%E0%A4%A8%E0%A4%B5%E0%A5%80%E0%A4%A8%20%E0%A4%89%E0%A4%A6%E0%A5%8D%E0%A4%AF%E0%A4%BE%E0%A4%A8%E0%A4%BE%E0%A4%9A%E0%A5%87%20%E0%A4%B2%E0%A5%8B%E0%A4%95%E0%A4%BE%E0%A4%B0%E0%A5%8D%E0%A4%AA%E0%A4%A3%2C%20%E0%A4%A8%E0%A4%BE%E0%A4%97%E0%A4%B0%E0%A4%BF%E0%A4%95%E0%A4%BE%E0%A4%82%E0%A4%9A%E0%A4%BE%20%E0%A4%89%E0%A4%A4%E0%A5%8D%E0%A4%B8%E0%A5%8D%E0%A4%AB%E0%A5%82%E0%A4%B0%E0%A5%8D%E0%A4%A4%20%E0%A4%AA%E0%A5%8D%E0%A4%B0%E0%A4%A4%E0%A4%BF%E0%A4%B8%E0%A4%BE%E0%A4%A6%20%E2%80%94%20https%3A//mavalvarta.example.com/news" target="_blank" rel="noopener" aria-label="WhatsApp वर शेअर करा" title="WhatsApp वर शेअर करा"><svg viewBox="0 0 32 32" width="15" height="15" fill="currentColor"><path d="M16.02 3C9.4 3 4 8.38 4 15c0 2.34.63 4.53 1.72 6.42L4 29l7.78-1.65A11.9 11.9 0 0 0 16.02 27C22.65 27 28 21.62 28 15S22.65 3 16.02 3zm0 21.7c-2.02 0-3.9-.58-5.5-1.58l-.4-.24-4.6.98.98-4.48-.26-.42a9.6 9.6 0 0 1-1.5-5.16c0-5.36 4.38-9.72 9.78-9.72 5.38 0 9.76 4.36 9.76 9.72 0 5.38-4.38 9.9-8.26 9.9zm5.36-7.3c-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15-.2.3-.77.97-.94 1.17-.17.2-.35.22-.65.07-.3-.15-1.26-.46-2.4-1.48-.89-.79-1.48-1.77-1.66-2.07-.17-.3-.02-.46.13-.61.14-.14.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.08-.15-.67-1.62-.92-2.22-.24-.58-.49-.5-.67-.51h-.57c-.2 0-.52.07-.79.37-.27.3-1.04 1.02-1.04 2.48 0 1.46 1.07 2.87 1.22 3.07.15.2 2.1 3.2 5.08 4.49.71.31 1.26.49 1.69.63.71.23 1.36.2 1.87.12.57-.09 1.76-.72 2.01-1.42.25-.7.25-1.3.17-1.42-.07-.12-.27-.2-.57-.35z"/></svg></a></div>
@@ -510,17 +540,17 @@
       </div>
       <div class="video-grid">
         <div class="video-card">
-          <div class="thumb"><img src="https://picsum.photos/seed/video-1/600/340" alt="" loading="lazy"><div class="play-btn"></div></div>
+          <div class="thumb"><img src="https://picsum.photos/seed/video-1/600/340" alt="व्हिडिओ बातमी थंबनेल" loading="lazy"><div class="play-btn"></div></div>
           <h3>पवना धरण पाणलोट क्षेत्रातील थेट दृश्ये</h3>
           <div class="meta"><span>१७ ऑगस्ट</span></div>
         </div>
         <div class="video-card">
-          <div class="thumb"><img src="https://picsum.photos/seed/video-2/600/340" alt="" loading="lazy"><div class="play-btn"></div></div>
+          <div class="thumb"><img src="https://picsum.photos/seed/video-2/600/340" alt="व्हिडिओ बातमी थंबनेल" loading="lazy"><div class="play-btn"></div></div>
           <h3>लोणावळा स्वातंत्र्यदिन सोहळा - विशेष वृत्तांत</h3>
           <div class="meta"><span>१५ ऑगस्ट</span></div>
         </div>
         <div class="video-card">
-          <div class="thumb"><img src="https://picsum.photos/seed/video-3/600/340" alt="" loading="lazy"><div class="play-btn"></div></div>
+          <div class="thumb"><img src="https://picsum.photos/seed/video-3/600/340" alt="व्हिडिओ बातमी थंबनेल" loading="lazy"><div class="play-btn"></div></div>
           <h3>मावळ तालुका क्रीडा स्पर्धेचे हायलाइट्स</h3>
           <div class="meta"><span>१२ ऑगस्ट</span></div>
         </div>
@@ -535,22 +565,22 @@
       </div>
       <div class="card-grid">
         <div class="card">
-          <div class="thumb"><img src="https://picsum.photos/seed/misc-3/600/400" alt="" loading="lazy"><span class="cat-chip chip-other">इतर</span></div>
+          <div class="thumb"><img src="https://picsum.photos/seed/misc-3/600/400" alt="बातमी - प्रातिनिधिक छायाचित्र" loading="lazy"><span class="cat-chip chip-other">इतर</span></div>
           <h3><a href="#">राज्यभरातील पत्रकार संघटनांची पुण्यात बैठक संपन्न</a></h3>
             <div class="meta"><span>१३ ऑगस्ट</span><a class="wa-share" href="https://wa.me/?text=%E0%A4%B0%E0%A4%BE%E0%A4%9C%E0%A5%8D%E0%A4%AF%E0%A4%AD%E0%A4%B0%E0%A4%BE%E0%A4%A4%E0%A5%80%E0%A4%B2%20%E0%A4%AA%E0%A4%A4%E0%A5%8D%E0%A4%B0%E0%A4%95%E0%A4%BE%E0%A4%B0%20%E0%A4%B8%E0%A4%82%E0%A4%98%E0%A4%9F%E0%A4%A8%E0%A4%BE%E0%A4%82%E0%A4%9A%E0%A5%80%20%E0%A4%AA%E0%A5%81%E0%A4%A3%E0%A5%8D%E0%A4%AF%E0%A4%BE%E0%A4%A4%20%E0%A4%AC%E0%A5%88%E0%A4%A0%E0%A4%95%20%E0%A4%B8%E0%A4%82%E0%A4%AA%E0%A4%A8%E0%A5%8D%E0%A4%A8%20%E2%80%94%20https%3A//mavalvarta.example.com/news" target="_blank" rel="noopener" aria-label="WhatsApp वर शेअर करा" title="WhatsApp वर शेअर करा"><svg viewBox="0 0 32 32" width="15" height="15" fill="currentColor"><path d="M16.02 3C9.4 3 4 8.38 4 15c0 2.34.63 4.53 1.72 6.42L4 29l7.78-1.65A11.9 11.9 0 0 0 16.02 27C22.65 27 28 21.62 28 15S22.65 3 16.02 3zm0 21.7c-2.02 0-3.9-.58-5.5-1.58l-.4-.24-4.6.98.98-4.48-.26-.42a9.6 9.6 0 0 1-1.5-5.16c0-5.36 4.38-9.72 9.78-9.72 5.38 0 9.76 4.36 9.76 9.72 0 5.38-4.38 9.9-8.26 9.9zm5.36-7.3c-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15-.2.3-.77.97-.94 1.17-.17.2-.35.22-.65.07-.3-.15-1.26-.46-2.4-1.48-.89-.79-1.48-1.77-1.66-2.07-.17-.3-.02-.46.13-.61.14-.14.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.08-.15-.67-1.62-.92-2.22-.24-.58-.49-.5-.67-.51h-.57c-.2 0-.52.07-.79.37-.27.3-1.04 1.02-1.04 2.48 0 1.46 1.07 2.87 1.22 3.07.15.2 2.1 3.2 5.08 4.49.71.31 1.26.49 1.69.63.71.23 1.36.2 1.87.12.57-.09 1.76-.72 2.01-1.42.25-.7.25-1.3.17-1.42-.07-.12-.27-.2-.57-.35z"/></svg></a></div>
         </div>
         <div class="card">
-          <div class="thumb"><img src="https://picsum.photos/seed/misc-4/600/400" alt="" loading="lazy"><span class="cat-chip chip-other">इतर</span></div>
+          <div class="thumb"><img src="https://picsum.photos/seed/misc-4/600/400" alt="बातमी - प्रातिनिधिक छायाचित्र" loading="lazy"><span class="cat-chip chip-other">इतर</span></div>
           <h3><a href="#">खोपोली परिसरात सांस्कृतिक महोत्सवाची जय्यत तयारी</a></h3>
             <div class="meta"><span>१२ ऑगस्ट</span><a class="wa-share" href="https://wa.me/?text=%E0%A4%96%E0%A5%8B%E0%A4%AA%E0%A5%8B%E0%A4%B2%E0%A5%80%20%E0%A4%AA%E0%A4%B0%E0%A4%BF%E0%A4%B8%E0%A4%B0%E0%A4%BE%E0%A4%A4%20%E0%A4%B8%E0%A4%BE%E0%A4%82%E0%A4%B8%E0%A5%8D%E0%A4%95%E0%A5%83%E0%A4%A4%E0%A4%BF%E0%A4%95%20%E0%A4%AE%E0%A4%B9%E0%A5%8B%E0%A4%A4%E0%A5%8D%E0%A4%B8%E0%A4%B5%E0%A4%BE%E0%A4%9A%E0%A5%80%20%E0%A4%9C%E0%A4%AF%E0%A5%8D%E0%A4%AF%E0%A4%A4%20%E0%A4%A4%E0%A4%AF%E0%A4%BE%E0%A4%B0%E0%A5%80%20%E2%80%94%20https%3A//mavalvarta.example.com/news" target="_blank" rel="noopener" aria-label="WhatsApp वर शेअर करा" title="WhatsApp वर शेअर करा"><svg viewBox="0 0 32 32" width="15" height="15" fill="currentColor"><path d="M16.02 3C9.4 3 4 8.38 4 15c0 2.34.63 4.53 1.72 6.42L4 29l7.78-1.65A11.9 11.9 0 0 0 16.02 27C22.65 27 28 21.62 28 15S22.65 3 16.02 3zm0 21.7c-2.02 0-3.9-.58-5.5-1.58l-.4-.24-4.6.98.98-4.48-.26-.42a9.6 9.6 0 0 1-1.5-5.16c0-5.36 4.38-9.72 9.78-9.72 5.38 0 9.76 4.36 9.76 9.72 0 5.38-4.38 9.9-8.26 9.9zm5.36-7.3c-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15-.2.3-.77.97-.94 1.17-.17.2-.35.22-.65.07-.3-.15-1.26-.46-2.4-1.48-.89-.79-1.48-1.77-1.66-2.07-.17-.3-.02-.46.13-.61.14-.14.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.08-.15-.67-1.62-.92-2.22-.24-.58-.49-.5-.67-.51h-.57c-.2 0-.52.07-.79.37-.27.3-1.04 1.02-1.04 2.48 0 1.46 1.07 2.87 1.22 3.07.15.2 2.1 3.2 5.08 4.49.71.31 1.26.49 1.69.63.71.23 1.36.2 1.87.12.57-.09 1.76-.72 2.01-1.42.25-.7.25-1.3.17-1.42-.07-.12-.27-.2-.57-.35z"/></svg></a></div>
         </div>
         <div class="card">
-          <div class="thumb"><img src="https://picsum.photos/seed/misc-1/600/400" alt="" loading="lazy"><span class="cat-chip chip-other">इतर</span></div>
+          <div class="thumb"><img src="https://picsum.photos/seed/misc-1/600/400" alt="बातमी - प्रातिनिधिक छायाचित्र" loading="lazy"><span class="cat-chip chip-other">इतर</span></div>
           <h3><a href="#">देहू-आळंदी परिसरातील रस्ते दुरुस्तीसाठी निधी मंजूर</a></h3>
             <div class="meta"><span>१० ऑगस्ट</span><a class="wa-share" href="https://wa.me/?text=%E0%A4%A6%E0%A5%87%E0%A4%B9%E0%A5%82-%E0%A4%86%E0%A4%B3%E0%A4%82%E0%A4%A6%E0%A5%80%20%E0%A4%AA%E0%A4%B0%E0%A4%BF%E0%A4%B8%E0%A4%B0%E0%A4%BE%E0%A4%A4%E0%A5%80%E0%A4%B2%20%E0%A4%B0%E0%A4%B8%E0%A5%8D%E0%A4%A4%E0%A5%87%20%E0%A4%A6%E0%A5%81%E0%A4%B0%E0%A5%81%E0%A4%B8%E0%A5%8D%E0%A4%A4%E0%A5%80%E0%A4%B8%E0%A4%BE%E0%A4%A0%E0%A5%80%20%E0%A4%A8%E0%A4%BF%E0%A4%A7%E0%A5%80%20%E0%A4%AE%E0%A4%82%E0%A4%9C%E0%A5%82%E0%A4%B0%20%E2%80%94%20https%3A//mavalvarta.example.com/news" target="_blank" rel="noopener" aria-label="WhatsApp वर शेअर करा" title="WhatsApp वर शेअर करा"><svg viewBox="0 0 32 32" width="15" height="15" fill="currentColor"><path d="M16.02 3C9.4 3 4 8.38 4 15c0 2.34.63 4.53 1.72 6.42L4 29l7.78-1.65A11.9 11.9 0 0 0 16.02 27C22.65 27 28 21.62 28 15S22.65 3 16.02 3zm0 21.7c-2.02 0-3.9-.58-5.5-1.58l-.4-.24-4.6.98.98-4.48-.26-.42a9.6 9.6 0 0 1-1.5-5.16c0-5.36 4.38-9.72 9.78-9.72 5.38 0 9.76 4.36 9.76 9.72 0 5.38-4.38 9.9-8.26 9.9zm5.36-7.3c-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15-.2.3-.77.97-.94 1.17-.17.2-.35.22-.65.07-.3-.15-1.26-.46-2.4-1.48-.89-.79-1.48-1.77-1.66-2.07-.17-.3-.02-.46.13-.61.14-.14.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.08-.15-.67-1.62-.92-2.22-.24-.58-.49-.5-.67-.51h-.57c-.2 0-.52.07-.79.37-.27.3-1.04 1.02-1.04 2.48 0 1.46 1.07 2.87 1.22 3.07.15.2 2.1 3.2 5.08 4.49.71.31 1.26.49 1.69.63.71.23 1.36.2 1.87.12.57-.09 1.76-.72 2.01-1.42.25-.7.25-1.3.17-1.42-.07-.12-.27-.2-.57-.35z"/></svg></a></div>
         </div>
         <div class="card">
-          <div class="thumb"><img src="https://picsum.photos/seed/misc-2/600/400" alt="" loading="lazy"><span class="cat-chip chip-other">इतर</span></div>
+          <div class="thumb"><img src="https://picsum.photos/seed/misc-2/600/400" alt="बातमी - प्रातिनिधिक छायाचित्र" loading="lazy"><span class="cat-chip chip-other">इतर</span></div>
           <h3><a href="#">पुणे जिल्ह्यातील शालेय पोषण आहार योजनेचा आढावा</a></h3>
             <div class="meta"><span>९ ऑगस्ट</span><a class="wa-share" href="https://wa.me/?text=%E0%A4%AA%E0%A5%81%E0%A4%A3%E0%A5%87%20%E0%A4%9C%E0%A4%BF%E0%A4%B2%E0%A5%8D%E0%A4%B9%E0%A5%8D%E0%A4%AF%E0%A4%BE%E0%A4%A4%E0%A5%80%E0%A4%B2%20%E0%A4%B6%E0%A4%BE%E0%A4%B2%E0%A5%87%E0%A4%AF%20%E0%A4%AA%E0%A5%8B%E0%A4%B7%E0%A4%A3%20%E0%A4%86%E0%A4%B9%E0%A4%BE%E0%A4%B0%20%E0%A4%AF%E0%A5%8B%E0%A4%9C%E0%A4%A8%E0%A5%87%E0%A4%9A%E0%A4%BE%20%E0%A4%86%E0%A4%A2%E0%A4%BE%E0%A4%B5%E0%A4%BE%20%E2%80%94%20https%3A//mavalvarta.example.com/news" target="_blank" rel="noopener" aria-label="WhatsApp वर शेअर करा" title="WhatsApp वर शेअर करा"><svg viewBox="0 0 32 32" width="15" height="15" fill="currentColor"><path d="M16.02 3C9.4 3 4 8.38 4 15c0 2.34.63 4.53 1.72 6.42L4 29l7.78-1.65A11.9 11.9 0 0 0 16.02 27C22.65 27 28 21.62 28 15S22.65 3 16.02 3zm0 21.7c-2.02 0-3.9-.58-5.5-1.58l-.4-.24-4.6.98.98-4.48-.26-.42a9.6 9.6 0 0 1-1.5-5.16c0-5.36 4.38-9.72 9.78-9.72 5.38 0 9.76 4.36 9.76 9.72 0 5.38-4.38 9.9-8.26 9.9zm5.36-7.3c-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15-.2.3-.77.97-.94 1.17-.17.2-.35.22-.65.07-.3-.15-1.26-.46-2.4-1.48-.89-.79-1.48-1.77-1.66-2.07-.17-.3-.02-.46.13-.61.14-.14.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.08-.15-.67-1.62-.92-2.22-.24-.58-.49-.5-.67-.51h-.57c-.2 0-.52.07-.79.37-.27.3-1.04 1.02-1.04 2.48 0 1.46 1.07 2.87 1.22 3.07.15.2 2.1 3.2 5.08 4.49.71.31 1.26.49 1.69.63.71.23 1.36.2 1.87.12.57-.09 1.76-.72 2.01-1.42.25-.7.25-1.3.17-1.42-.07-.12-.27-.2-.57-.35z"/></svg></a></div>
         </div>
