@@ -1,0 +1,612 @@
+<!DOCTYPE html>
+<html lang="mr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>मावळ वार्ता | स्थानिक बातम्या</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Tiro+Devanagari+Marathi:ital@0;1&family=Baloo+2:wght@500;600;700;800&family=Noto+Sans+Devanagari:wght@400;500;600;700&family=Noto+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#1a2740;
+    --ink-soft:#4a5670;
+    --paper:#fbf9f4;
+    --paper-2:#f2efe6;
+    --line:#e2ddce;
+    --saffron:#e8720c;
+    --saffron-deep:#c15a06;
+    --leaf:#1c7a52;
+    --wine:#8f1d2c;
+    --sky:#1f5c8b;
+    --plum:#6b3fa0;
+    --gold:#c99a2e;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--paper);
+    color:var(--ink);
+    font-family:'Noto Sans Devanagari','Noto Sans',sans-serif;
+    -webkit-font-smoothing:antialiased;
+  }
+  a{color:inherit;text-decoration:none;}
+  h1,h2,h3,h4{font-family:'Tiro Devanagari Marathi',serif;margin:0;line-height:1.25;}
+  .eyebrow{
+    font-family:'Noto Sans',sans-serif;
+    font-size:11px;
+    letter-spacing:.14em;
+    text-transform:uppercase;
+    font-weight:700;
+  }
+  .wrap{max-width:1180px;margin:0 auto;padding:0 20px;}
+
+  /* ---- utility band ---- */
+  .utility{background:var(--ink);color:#dfe4ef;font-size:12.5px;}
+  .utility .wrap{display:flex;justify-content:space-between;align-items:center;height:34px;font-family:'Noto Sans',sans-serif;}
+  .utility .date{opacity:.75;}
+  .utility .quick a{margin-left:16px;opacity:.85;}
+  .utility .quick a:hover{opacity:1;color:var(--saffron);}
+
+  /* ---- ticker ---- */
+  .ticker-band{
+    background:linear-gradient(90deg,var(--wine),#a8283a);
+    color:#fff;
+    display:flex;
+    align-items:stretch;
+    border-bottom:3px solid var(--saffron);
+  }
+  .ticker-label{
+    background:var(--saffron);
+    color:var(--ink);
+    font-family:'Baloo 2',sans-serif;
+    font-weight:700;
+    font-size:13.5px;
+    padding:8px 18px;
+    display:flex;
+    align-items:center;
+    white-space:nowrap;
+    flex-shrink:0;
+    clip-path:polygon(0 0,100% 0,88% 100%,0% 100%);
+    padding-right:32px;
+  }
+  .ticker-viewport{overflow:hidden;flex:1;display:flex;align-items:center;}
+  .ticker-track{display:flex;white-space:nowrap;animation:scroll-left 32s linear infinite;padding-left:100%;}
+  .ticker-track span{padding:0 34px;font-size:13.5px;font-weight:500;position:relative;}
+  .ticker-track span::after{content:"●";color:var(--saffron);position:absolute;right:12px;font-size:6px;top:50%;transform:translateY(-50%);}
+  @keyframes scroll-left{ 0%{transform:translateX(0);} 100%{transform:translateX(-100%);} }
+  @media (prefers-reduced-motion:reduce){ .ticker-track{animation:none;padding-left:16px;} }
+
+  /* ---- masthead ---- */
+  .masthead{background:var(--paper);border-bottom:4px double var(--ink);}
+  .masthead .wrap{display:flex;align-items:center;justify-content:space-between;padding:22px 20px 16px;gap:24px;}
+  .brand{display:flex;align-items:center;gap:14px;}
+  .brand-mark{
+    width:56px;height:56px;border-radius:14px;
+    background:conic-gradient(from 210deg,var(--saffron),var(--gold) 40%,var(--leaf) 75%,var(--saffron));
+    display:flex;align-items:center;justify-content:center;
+    font-family:'Tiro Devanagari Marathi',serif;font-weight:700;font-size:24px;color:#fff;
+    box-shadow:0 4px 14px rgba(26,39,64,.18);
+  }
+  .brand-text h1{font-size:34px;font-weight:700;letter-spacing:.01em;}
+  .brand-text .tag{font-family:'Noto Sans Devanagari',sans-serif;font-size:13px;color:var(--ink-soft);margin-top:2px;}
+  .masthead-side{text-align:right;font-family:'Noto Sans',sans-serif;font-size:12.5px;color:var(--ink-soft);}
+  .masthead-side .live{
+    display:inline-flex;align-items:center;gap:6px;color:var(--wine);font-weight:700;margin-top:6px;
+  }
+  .live-dot{width:7px;height:7px;border-radius:50%;background:var(--wine);animation:pulse 1.6s ease-in-out infinite;}
+  @keyframes pulse{0%,100%{opacity:1;}50%{opacity:.3;}}
+
+  /* ---- nav ---- */
+  nav.primary{background:var(--ink);}
+  nav.primary .wrap{display:flex;overflow-x:auto;}
+  nav.primary a{
+    padding:13px 20px;font-size:14.5px;font-weight:600;color:#e9ecf4;white-space:nowrap;
+    border-right:1px solid rgba(255,255,255,.08);position:relative;
+  }
+  nav.primary a:first-child{color:var(--saffron);}
+  nav.primary a:hover{background:rgba(255,255,255,.06);color:var(--saffron);}
+  nav.primary a.tag-dot::before{content:"";display:inline-block;width:7px;height:7px;border-radius:50%;margin-right:8px;}
+  .tag-crime::before{background:var(--wine);}
+  .tag-lonavala::before{background:var(--sky);}
+  .tag-maval::before{background:var(--leaf);}
+  .tag-pcmc::before{background:var(--plum);}
+  .tag-video::before{background:var(--saffron);}
+  .tag-other::before{background:var(--gold);}
+
+  /* ---- layout ---- */
+  main{padding:30px 0 10px;}
+  .grid-main{display:grid;grid-template-columns:2.1fr 1fr;gap:34px;}
+  @media (max-width:920px){.grid-main{grid-template-columns:1fr;}}
+
+  .thumb{
+    aspect-ratio:16/10;border-radius:6px;position:relative;overflow:hidden;
+    background:linear-gradient(135deg,var(--paper-2),#e6e0cf);
+    display:flex;align-items:center;justify-content:center;
+  }
+  .thumb img{
+    position:absolute;inset:0;width:100%;height:100%;object-fit:cover;
+    transition:transform .5s ease;
+  }
+  .card:hover .thumb img,
+  .hero-story:hover .thumb img,
+  .video-card:hover .thumb img{transform:scale(1.05);}
+  .thumb .ph-icon{font-size:28px;opacity:.35;font-family:'Noto Sans',sans-serif;}
+  .cat-chip{
+    position:absolute;top:10px;left:10px;
+    font-family:'Noto Sans',sans-serif;font-size:11px;font-weight:700;
+    color:#fff;padding:4px 10px;border-radius:3px;letter-spacing:.02em;
+  }
+  .chip-crime{background:var(--wine);}
+  .chip-lonavala{background:var(--sky);}
+  .chip-maval{background:var(--leaf);}
+  .chip-pcmc{background:var(--plum);}
+  .chip-other{background:var(--gold);color:var(--ink);}
+
+  /* hero */
+  .hero-story .thumb{aspect-ratio:16/9;}
+  .hero-story h2{font-size:28px;margin-top:16px;}
+  .hero-story h2 a:hover{color:var(--saffron-deep);}
+  .meta{font-family:'Noto Sans',sans-serif;font-size:12px;color:var(--ink-soft);margin-top:8px;display:flex;gap:10px;align-items:center;}
+  .hero-story p.dek{margin-top:10px;color:var(--ink-soft);font-size:15px;line-height:1.7;}
+
+  .side-list{border-top:1px solid var(--line);margin-top:22px;padding-top:18px;}
+  .side-list-item{display:flex;gap:12px;padding:12px 0;border-bottom:1px solid var(--line);}
+  .side-list-item .thumb{width:92px;flex-shrink:0;aspect-ratio:1/1;border-radius:5px;}
+  .side-list-item .body h3{font-size:14.5px;font-weight:600;font-family:'Noto Sans Devanagari',sans-serif;}
+  .side-list-item .body h3 a:hover{color:var(--saffron-deep);}
+  .side-list-item .meta{margin-top:6px;}
+
+  /* section header */
+  .section-head{
+    display:flex;align-items:center;justify-content:space-between;
+    margin:44px 0 18px;padding-bottom:10px;border-bottom:3px solid var(--ink);
+  }
+  .section-head h2{font-size:22px;display:flex;align-items:center;gap:10px;}
+  .section-head .bar{width:6px;height:22px;border-radius:2px;display:inline-block;}
+  .section-head a.more{font-family:'Noto Sans',sans-serif;font-size:12.5px;font-weight:700;color:var(--ink-soft);}
+  .section-head a.more:hover{color:var(--saffron-deep);}
+
+  .card-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:22px;}
+  @media (max-width:920px){.card-grid{grid-template-columns:repeat(2,1fr);}}
+  @media (max-width:520px){.card-grid{grid-template-columns:1fr;}}
+  .card h3{font-size:15.5px;margin-top:12px;font-family:'Noto Sans Devanagari',sans-serif;font-weight:600;}
+  .card h3 a:hover{color:var(--saffron-deep);}
+  .card .meta{margin-top:8px;}
+
+  /* two column feature band: crime + most read */
+  .band{display:grid;grid-template-columns:2.1fr 1fr;gap:34px;margin-top:10px;}
+  @media (max-width:920px){.band{grid-template-columns:1fr;}}
+  .most-read{background:var(--paper-2);border-radius:10px;padding:20px;}
+  .most-read h2{font-size:18px;margin-bottom:14px;}
+  .mr-item{display:flex;gap:12px;align-items:flex-start;padding:11px 0;border-bottom:1px solid var(--line);}
+  .mr-item:last-child{border-bottom:none;}
+  .mr-num{
+    font-family:'Baloo 2',sans-serif;font-weight:700;font-size:22px;color:var(--saffron);
+    width:28px;flex-shrink:0;
+  }
+  .mr-item h4{font-size:13.5px;font-weight:600;font-family:'Noto Sans Devanagari',sans-serif;}
+  .mr-item h4 a:hover{color:var(--saffron-deep);}
+
+  /* video */
+  .video-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;}
+  @media (max-width:780px){.video-grid{grid-template-columns:1fr;}}
+  .video-card .thumb{aspect-ratio:16/9;background:linear-gradient(135deg,#1a2740,#2c3f66);}
+  .play-btn{
+    width:52px;height:52px;border-radius:50%;background:rgba(255,255,255,.92);
+    display:flex;align-items:center;justify-content:center;position:relative;z-index:1;
+  }
+  .play-btn::after{content:"";border-left:16px solid var(--wine);border-top:10px solid transparent;border-bottom:10px solid transparent;margin-left:4px;}
+  .video-card h3{font-size:14.5px;margin-top:10px;font-family:'Noto Sans Devanagari',sans-serif;font-weight:600;}
+
+  /* newsletter/whatsapp strip */
+  .cta-strip{
+    margin-top:50px;background:linear-gradient(120deg,var(--ink),#233457);
+    border-radius:12px;padding:30px 34px;display:flex;align-items:center;justify-content:space-between;gap:24px;color:#fff;
+    flex-wrap:wrap;
+  }
+  .cta-strip h2{color:#fff;font-size:22px;}
+  .cta-strip p{font-family:'Noto Sans Devanagari',sans-serif;color:#c7cee2;margin-top:6px;font-size:14px;}
+  .cta-btn{
+    background:var(--saffron);color:var(--ink);font-family:'Baloo 2',sans-serif;font-weight:700;
+    padding:12px 26px;border-radius:30px;font-size:14.5px;white-space:nowrap;border:none;cursor:pointer;
+  }
+  .cta-btn:hover{background:var(--gold);}
+
+  footer{margin-top:60px;background:var(--ink);color:#c7cee2;}
+  .footer-grid{display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:36px;padding:48px 0 30px;}
+  @media (max-width:820px){.footer-grid{grid-template-columns:1fr 1fr;}}
+  @media (max-width:520px){.footer-grid{grid-template-columns:1fr;}}
+  footer h4{font-family:'Noto Sans',sans-serif;color:#fff;font-size:13px;letter-spacing:.08em;text-transform:uppercase;margin-bottom:16px;}
+  footer .fbrand{display:flex;align-items:center;gap:10px;margin-bottom:14px;}
+  footer .fbrand .mark{width:38px;height:38px;border-radius:9px;background:conic-gradient(from 210deg,var(--saffron),var(--gold) 40%,var(--leaf) 75%,var(--saffron));}
+  footer .fbrand span{font-family:'Tiro Devanagari Marathi',serif;font-size:20px;color:#fff;font-weight:700;}
+  footer p{font-family:'Noto Sans Devanagari',sans-serif;font-size:13.5px;line-height:1.8;color:#a9b2c9;}
+  footer ul{list-style:none;margin:0;padding:0;}
+  footer li{margin-bottom:10px;font-size:13.5px;}
+  footer li a:hover{color:var(--saffron);}
+  .social-row{display:flex;gap:10px;margin-top:16px;}
+  .social-row a{
+    width:34px;height:34px;border-radius:50%;background:rgba(255,255,255,.08);
+    display:flex;align-items:center;justify-content:center;font-family:'Noto Sans',sans-serif;font-size:13px;font-weight:700;
+  }
+  .social-row a:hover{background:var(--saffron);color:var(--ink);}
+  .footer-bottom{border-top:1px solid rgba(255,255,255,.1);padding:18px 0;font-size:12px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px;color:#8a93ab;font-family:'Noto Sans',sans-serif;}
+
+  ::selection{background:var(--saffron);color:#fff;}
+</style>
+</head>
+<body>
+
+  <div class="utility">
+    <div class="wrap">
+      <span class="date">सोमवार, १७ ऑगस्ट २०२६ · मावळ, लोणावळा आणि पुणे जिल्ह्यातील स्थानिक बातम्या</span>
+      <span class="quick">
+        <a href="#">आमच्याशी संपर्क</a><a href="#">जाहिरात</a><a href="#">Android अ‍ॅप लवकरच</a>
+      </span>
+    </div>
+  </div>
+
+  <div class="ticker-band">
+    <div class="ticker-label">ब्रेकिंग</div>
+    <div class="ticker-viewport">
+      <div class="ticker-track">
+        <span>तळेगाव परिसरात आज दुपारी हलक्या ते मध्यम पावसाची शक्यता, हवामान विभागाचा अंदाज</span>
+        <span>लोणावळा नगरपरिषदेची स्वच्छता मोहीम उद्यापासून सुरू, नागरिकांना सहभागाचे आवाहन</span>
+        <span>मावळ तालुका क्रीडा स्पर्धेत वडगाव शाळेच्या संघाला विजेतेपद</span>
+        <span>खंडाळा घाट परिसरात वाहतूक कोंडी, प्रवाशांना पर्यायी मार्ग वापरण्याचे आवाहन</span>
+      </div>
+    </div>
+  </div>
+
+  <header class="masthead">
+    <div class="wrap">
+      <div class="brand">
+        <div class="brand-mark">मा</div>
+        <div class="brand-text">
+          <h1>मावळ वार्ता</h1>
+          <div class="tag">बातमी क्षणा-क्षणात, मना-मनात</div>
+        </div>
+      </div>
+      <div class="masthead-side">
+        आवृत्ती : लोणावळा – मावळ – पुणे
+        <div class="live"><span class="live-dot"></span> थेट अपडेट सुरू</div>
+      </div>
+    </div>
+  </header>
+
+  <nav class="primary">
+    <div class="wrap">
+      <a href="#top">मुख्यपान</a>
+      <a href="#crime" class="tag-dot tag-crime">क्राईम न्युज</a>
+      <a href="#lonavala" class="tag-dot tag-lonavala">लोणावळा</a>
+      <a href="#maval" class="tag-dot tag-maval">मावळ</a>
+      <a href="#pcmc" class="tag-dot tag-pcmc">पिंपरी-चिंचवड</a>
+      <a href="#videos" class="tag-dot tag-video">व्हिडिओ गॅलरी</a>
+      <a href="#other" class="tag-dot tag-other">इतर बातम्या</a>
+    </div>
+  </nav>
+
+  <main class="wrap" id="top">
+
+    <!-- HERO -->
+    <div class="grid-main">
+      <div class="hero-story">
+        <div class="thumb">
+          <img src="https://picsum.photos/seed/lonavala-hero/900/560" alt="" loading="lazy">
+          <span class="cat-chip chip-lonavala">लोणावळा</span>
+        </div>
+        <h2><a href="#">पवना धरण ९२ टक्के भरले; परिसरातील गावांना सतर्कतेचा इशारा</a></h2>
+        <div class="meta"><span>१७ ऑगस्ट २०२६</span><span>·</span><span>लोणावळा</span><span>·</span><span>३ मिनिटांत वाचा</span></div>
+        <p class="dek">सलग तिसऱ्या दिवशी झालेल्या दमदार पावसामुळे पवना धरणाच्या पाणीपातळीत लक्षणीय वाढ झाली असून प्रशासनाने नदीकाठच्या गावांना सतर्कतेचा इशारा दिला आहे. आवश्यकता भासल्यास धरणातून विसर्ग वाढवला जाऊ शकतो, असे पाटबंधारे विभागाने कळवले आहे.</p>
+      </div>
+
+      <div class="side-panel">
+        <div class="side-list">
+          <div class="side-list-item">
+            <div class="thumb"><img src="https://picsum.photos/seed/maval-farm-1/600/400" alt="" loading="lazy"><span class="cat-chip chip-maval">मावळ</span></div>
+            <div class="body">
+              <h3><a href="#">वडगाव मावळ शाळेतील विद्यार्थ्यांचा विज्ञान प्रकल्पात राज्यात नावलौकिक</a></h3>
+              <div class="meta"><span>१७ ऑगस्ट</span><span>·</span><span>मावळ</span></div>
+            </div>
+          </div>
+          <div class="side-list-item">
+            <div class="thumb"><img src="https://picsum.photos/seed/police-1/600/400" alt="" loading="lazy"><span class="cat-chip chip-crime">क्राईम न्युज</span></div>
+            <div class="body">
+              <h3><a href="#">लोणावळा ग्रामीण पोलिसांची कारवाई; अवैध जुगार अड्ड्यावर छापा</a></h3>
+              <div class="meta"><span>१६ ऑगस्ट</span><span>·</span><span>लोणावळा</span></div>
+            </div>
+          </div>
+          <div class="side-list-item">
+            <div class="thumb"><img src="https://picsum.photos/seed/city-1/600/400" alt="" loading="lazy"><span class="cat-chip chip-pcmc">पिंपरी-चिंचवड</span></div>
+            <div class="body">
+              <h3><a href="#">पिंपरी-चिंचवड महापालिकेतर्फे मान्सूनपूर्व नालेसफाईचा आढावा</a></h3>
+              <div class="meta"><span>१६ ऑगस्ट</span><span>·</span><span>पिंपरी-चिंचवड</span></div>
+            </div>
+          </div>
+          <div class="side-list-item">
+            <div class="thumb"><img src="https://picsum.photos/seed/misc-1/600/400" alt="" loading="lazy"><span class="cat-chip chip-other">इतर</span></div>
+            <div class="body">
+              <h3><a href="#">कार्ला लेणी परिसरात पर्यटकांसाठी नवीन सुरक्षा कठडे उभारले</a></h3>
+              <div class="meta"><span>१५ ऑगस्ट</span><span>·</span><span>कार्ला</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- LATEST GRID -->
+    <div class="section-head">
+      <h2><span class="bar" style="background:var(--saffron)"></span>ताज्या बातम्या</h2>
+      <a class="more" href="#">सर्व बातम्या पहा →</a>
+    </div>
+    <div class="card-grid">
+      <div class="card">
+        <div class="thumb"><img src="https://picsum.photos/seed/lonavala-hills-1/600/400" alt="" loading="lazy"><span class="cat-chip chip-lonavala">लोणावळा</span></div>
+        <h3><a href="#">लोणावळा स्थानकावर नवीन सरकते जिने कार्यान्वित, प्रवाशांची सोय</a></h3>
+        <div class="meta"><span>१७ ऑगस्ट</span><span>·</span><span>लोणावळा</span></div>
+      </div>
+      <div class="card">
+        <div class="thumb"><img src="https://picsum.photos/seed/maval-farm-2/600/400" alt="" loading="lazy"><span class="cat-chip chip-maval">मावळ</span></div>
+        <h3><a href="#">तळेगाव औद्योगिक वसाहतीत नवीन प्रकल्पामुळे स्थानिकांना रोजगार संधी</a></h3>
+        <div class="meta"><span>१७ ऑगस्ट</span><span>·</span><span>मावळ</span></div>
+      </div>
+      <div class="card">
+        <div class="thumb"><img src="https://picsum.photos/seed/police-2/600/400" alt="" loading="lazy"><span class="cat-chip chip-crime">क्राईम न्युज</span></div>
+        <h3><a href="#">मुंबई-पुणे एक्सप्रेसवेवर वाहतूक नियम मोडणाऱ्यांवर विशेष मोहीम</a></h3>
+        <div class="meta"><span>१६ ऑगस्ट</span><span>·</span><span>खंडाळा</span></div>
+      </div>
+      <div class="card">
+        <div class="thumb"><img src="https://picsum.photos/seed/misc-2/600/400" alt="" loading="lazy"><span class="cat-chip chip-other">इतर</span></div>
+        <h3><a href="#">आळंदी येथे इंद्रायणी नदी स्वच्छता अभियानास उत्स्फूर्त प्रतिसाद</a></h3>
+        <div class="meta"><span>१५ ऑगस्ट</span><span>·</span><span>आळंदी</span></div>
+      </div>
+    </div>
+
+    <!-- LONAVALA + MOST READ -->
+    <div class="band" id="lonavala">
+      <div>
+        <div class="section-head">
+          <h2><span class="bar" style="background:var(--sky)"></span>लोणावळा</h2>
+          <a class="more" href="#">अधिक बातम्या →</a>
+        </div>
+        <div class="card-grid" style="grid-template-columns:repeat(2,1fr);">
+          <div class="card">
+            <div class="thumb"><img src="https://picsum.photos/seed/lonavala-hills-2/600/400" alt="" loading="lazy"><span class="cat-chip chip-lonavala">लोणावळा</span></div>
+            <h3><a href="#">भुशी डॅम परिसरात पर्यटकांच्या सुरक्षेसाठी अतिरिक्त जीवरक्षक तैनात</a></h3>
+            <div class="meta"><span>१७ ऑगस्ट</span></div>
+          </div>
+          <div class="card">
+            <div class="thumb"><img src="https://picsum.photos/seed/lonavala-hills-3/600/400" alt="" loading="lazy"><span class="cat-chip chip-lonavala">लोणावळा</span></div>
+            <h3><a href="#">लोणावळा नगरपरिषदेच्या सर्वसाधारण सभेत पाणीपुरवठा योजनेवर चर्चा</a></h3>
+            <div class="meta"><span>१६ ऑगस्ट</span></div>
+          </div>
+          <div class="card">
+            <div class="thumb"><img src="https://picsum.photos/seed/lonavala-hills-4/600/400" alt="" loading="lazy"><span class="cat-chip chip-lonavala">लोणावळा</span></div>
+            <h3><a href="#">कुसगाव परिसरातील रस्ता दुरुस्तीचे काम अंतिम टप्प्यात</a></h3>
+            <div class="meta"><span>१६ ऑगस्ट</span></div>
+          </div>
+          <div class="card">
+            <div class="thumb"><img src="https://picsum.photos/seed/lonavala-hills-5/600/400" alt="" loading="lazy"><span class="cat-chip chip-lonavala">लोणावळा</span></div>
+            <h3><a href="#">वरसोली येथे ग्रामपंचायतीतर्फे वृक्षारोपण मोहीम उत्साहात संपन्न</a></h3>
+            <div class="meta"><span>१५ ऑगस्ट</span></div>
+          </div>
+        </div>
+      </div>
+
+      <aside class="most-read">
+        <h2>सर्वाधिक वाचलेल्या बातम्या</h2>
+        <div class="mr-item">
+          <span class="mr-num">०१</span>
+          <h4><a href="#">खंडाळा घाटात दरड कोसळण्याची शक्यता; महामार्ग पोलिसांचा सतर्कतेचा इशारा</a></h4>
+        </div>
+        <div class="mr-item">
+          <span class="mr-num">०२</span>
+          <h4><a href="#">लोणावळा शहरात २४ तासांत विक्रमी पाऊस, अनेक रस्ते जलमय</a></h4>
+        </div>
+        <div class="mr-item">
+          <span class="mr-num">०३</span>
+          <h4><a href="#">मावळ तालुक्यातील शाळेच्या विद्यार्थ्यांची राष्ट्रीय विज्ञान स्पर्धेत निवड</a></h4>
+        </div>
+        <div class="mr-item">
+          <span class="mr-num">०४</span>
+          <h4><a href="#">पिंपरी-चिंचवडमध्ये नवीन उड्डाणपुलाचे भूमिपूजन संपन्न</a></h4>
+        </div>
+        <div class="mr-item">
+          <span class="mr-num">०५</span>
+          <h4><a href="#">कार्ला-भाजे लेणी परिसरात प्लास्टिकबंदीची कडक अंमलबजावणी</a></h4>
+        </div>
+      </aside>
+    </div>
+
+    <!-- MAVAL -->
+    <div id="maval">
+      <div class="section-head">
+        <h2><span class="bar" style="background:var(--leaf)"></span>मावळ</h2>
+        <a class="more" href="#">अधिक बातम्या →</a>
+      </div>
+      <div class="card-grid">
+        <div class="card">
+          <div class="thumb"><img src="https://picsum.photos/seed/maval-farm-3/600/400" alt="" loading="lazy"><span class="cat-chip chip-maval">मावळ</span></div>
+          <h3><a href="#">तळेगाव दाभाडे येथे शेतकरी मेळाव्यात आधुनिक शेती तंत्रज्ञानाची माहिती</a></h3>
+          <div class="meta"><span>१६ ऑगस्ट</span></div>
+        </div>
+        <div class="card">
+          <div class="thumb"><img src="https://picsum.photos/seed/maval-farm-4/600/400" alt="" loading="lazy"><span class="cat-chip chip-maval">मावळ</span></div>
+          <h3><a href="#">पवनानगर परिसरात आरोग्य शिबिराचे आयोजन, शेकडो नागरिकांची तपासणी</a></h3>
+          <div class="meta"><span>१५ ऑगस्ट</span></div>
+        </div>
+        <div class="card">
+          <div class="thumb"><img src="https://picsum.photos/seed/maval-farm-1/600/400" alt="" loading="lazy"><span class="cat-chip chip-maval">मावळ</span></div>
+          <h3><a href="#">वडगाव मावळ बाजारपेठेत स्वातंत्र्यदिनानिमित्त विशेष सजावट</a></h3>
+          <div class="meta"><span>१५ ऑगस्ट</span></div>
+        </div>
+        <div class="card">
+          <div class="thumb"><img src="https://picsum.photos/seed/maval-farm-2/600/400" alt="" loading="lazy"><span class="cat-chip chip-maval">मावळ</span></div>
+          <h3><a href="#">कामशेत परिसरातील पूल दुरुस्तीच्या कामाला अखेर सुरुवात</a></h3>
+          <div class="meta"><span>१४ ऑगस्ट</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- CRIME + PCMC -->
+    <div class="band" id="crime">
+      <div>
+        <div class="section-head">
+          <h2><span class="bar" style="background:var(--wine)"></span>क्राईम न्युज</h2>
+          <a class="more" href="#">अधिक बातम्या →</a>
+        </div>
+        <div class="card-grid" style="grid-template-columns:repeat(2,1fr);">
+          <div class="card">
+            <div class="thumb"><img src="https://picsum.photos/seed/police-3/600/400" alt="" loading="lazy"><span class="cat-chip chip-crime">क्राईम न्युज</span></div>
+            <h3><a href="#">लोणावळा शहर पोलिसांची मोहीम; वाहतूक नियम मोडणाऱ्या ४० वाहनांवर कारवाई</a></h3>
+            <div class="meta"><span>१६ ऑगस्ट</span></div>
+          </div>
+          <div class="card">
+            <div class="thumb"><img src="https://picsum.photos/seed/police-1/600/400" alt="" loading="lazy"><span class="cat-chip chip-crime">क्राईम न्युज</span></div>
+            <h3><a href="#">मावळ तालुक्यात सायबर फसवणुकीबाबत नागरिकांना पोलिसांचे जागृती अभियान</a></h3>
+            <div class="meta"><span>१४ ऑगस्ट</span></div>
+          </div>
+        </div>
+      </div>
+      <div id="pcmc">
+        <div class="section-head">
+          <h2><span class="bar" style="background:var(--plum)"></span>पिंपरी-चिंचवड</h2>
+          <a class="more" href="#">अधिक →</a>
+        </div>
+        <div class="side-list" style="margin-top:0;border-top:none;padding-top:0;">
+          <div class="side-list-item">
+            <div class="thumb"><img src="https://picsum.photos/seed/city-2/600/400" alt="" loading="lazy"><span class="cat-chip chip-pcmc">PCMC</span></div>
+            <div class="body">
+              <h3><a href="#">पिंपरी-चिंचवडमध्ये स्वातंत्र्यदिनी रक्तदान शिबिराचे आयोजन</a></h3>
+              <div class="meta"><span>१५ ऑगस्ट</span></div>
+            </div>
+          </div>
+          <div class="side-list-item">
+            <div class="thumb"><img src="https://picsum.photos/seed/city-3/600/400" alt="" loading="lazy"><span class="cat-chip chip-pcmc">PCMC</span></div>
+            <div class="body">
+              <h3><a href="#">महापालिकेच्या नवीन उद्यानाचे लोकार्पण, नागरिकांचा उत्स्फूर्त प्रतिसाद</a></h3>
+              <div class="meta"><span>१४ ऑगस्ट</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- VIDEOS -->
+    <div id="videos">
+      <div class="section-head">
+        <h2><span class="bar" style="background:var(--saffron)"></span>व्हिडिओ गॅलरी</h2>
+        <a class="more" href="#">सर्व व्हिडिओ →</a>
+      </div>
+      <div class="video-grid">
+        <div class="video-card">
+          <div class="thumb"><img src="https://picsum.photos/seed/video-1/600/340" alt="" loading="lazy"><div class="play-btn"></div></div>
+          <h3>पवना धरण पाणलोट क्षेत्रातील थेट दृश्ये</h3>
+          <div class="meta"><span>१७ ऑगस्ट</span></div>
+        </div>
+        <div class="video-card">
+          <div class="thumb"><img src="https://picsum.photos/seed/video-2/600/340" alt="" loading="lazy"><div class="play-btn"></div></div>
+          <h3>लोणावळा स्वातंत्र्यदिन सोहळा - विशेष वृत्तांत</h3>
+          <div class="meta"><span>१५ ऑगस्ट</span></div>
+        </div>
+        <div class="video-card">
+          <div class="thumb"><img src="https://picsum.photos/seed/video-3/600/340" alt="" loading="lazy"><div class="play-btn"></div></div>
+          <h3>मावळ तालुका क्रीडा स्पर्धेचे हायलाइट्स</h3>
+          <div class="meta"><span>१२ ऑगस्ट</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- OTHER -->
+    <div id="other">
+      <div class="section-head">
+        <h2><span class="bar" style="background:var(--gold)"></span>इतर बातम्या</h2>
+        <a class="more" href="#">अधिक →</a>
+      </div>
+      <div class="card-grid">
+        <div class="card">
+          <div class="thumb"><img src="https://picsum.photos/seed/misc-3/600/400" alt="" loading="lazy"><span class="cat-chip chip-other">इतर</span></div>
+          <h3><a href="#">राज्यभरातील पत्रकार संघटनांची पुण्यात बैठक संपन्न</a></h3>
+          <div class="meta"><span>१३ ऑगस्ट</span></div>
+        </div>
+        <div class="card">
+          <div class="thumb"><img src="https://picsum.photos/seed/misc-4/600/400" alt="" loading="lazy"><span class="cat-chip chip-other">इतर</span></div>
+          <h3><a href="#">खोपोली परिसरात सांस्कृतिक महोत्सवाची जय्यत तयारी</a></h3>
+          <div class="meta"><span>१२ ऑगस्ट</span></div>
+        </div>
+        <div class="card">
+          <div class="thumb"><img src="https://picsum.photos/seed/misc-1/600/400" alt="" loading="lazy"><span class="cat-chip chip-other">इतर</span></div>
+          <h3><a href="#">देहू-आळंदी परिसरातील रस्ते दुरुस्तीसाठी निधी मंजूर</a></h3>
+          <div class="meta"><span>१० ऑगस्ट</span></div>
+        </div>
+        <div class="card">
+          <div class="thumb"><img src="https://picsum.photos/seed/misc-2/600/400" alt="" loading="lazy"><span class="cat-chip chip-other">इतर</span></div>
+          <h3><a href="#">पुणे जिल्ह्यातील शालेय पोषण आहार योजनेचा आढावा</a></h3>
+          <div class="meta"><span>९ ऑगस्ट</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- CTA -->
+    <div class="cta-strip">
+      <div>
+        <h2>WhatsApp ग्रुपमध्ये सामील व्हा</h2>
+        <p>मावळ, लोणावळा आणि पुणे जिल्ह्यातील बातम्यांचे अपडेट्स थेट तुमच्या मोबाईलवर मिळवा.</p>
+      </div>
+      <button class="cta-btn">ग्रुप जॉईन करा →</button>
+    </div>
+
+  </main>
+
+  <footer>
+    <div class="wrap">
+      <div class="footer-grid">
+        <div>
+          <div class="fbrand"><div class="mark"></div><span>मावळ वार्ता</span></div>
+          <p>पत्रकारिता परमो धर्म — या तत्त्वाचे पालन करत लोणावळा शहर, ग्रामीण परिसर, मावळ तालुका आणि पुणे जिल्ह्यातील विश्वासार्ह बातम्या पोहोचवण्याचा आमचा प्रयत्न आहे.</p>
+          <div class="social-row">
+            <a href="#" aria-label="Facebook">f</a>
+            <a href="#" aria-label="Twitter">x</a>
+            <a href="#" aria-label="Instagram">ig</a>
+            <a href="#" aria-label="YouTube">yt</a>
+          </div>
+        </div>
+        <div>
+          <h4>विभाग</h4>
+          <ul>
+            <li><a href="#crime">क्राईम न्युज</a></li>
+            <li><a href="#lonavala">लोणावळा</a></li>
+            <li><a href="#maval">मावळ</a></li>
+            <li><a href="#pcmc">पिंपरी-चिंचवड</a></li>
+            <li><a href="#videos">व्हिडिओ गॅलरी</a></li>
+            <li><a href="#other">इतर बातम्या</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4>महत्त्वाचे दुवे</h4>
+          <ul>
+            <li><a href="#">आमच्याविषयी</a></li>
+            <li><a href="#">जाहिरात करा</a></li>
+            <li><a href="#">गोपनीयता धोरण</a></li>
+            <li><a href="#">कॉपीराइट धोरण</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4>संपर्क</h4>
+          <ul>
+            <li>+91 1234567890</li>
+            <li>info@example.com</li>
+            <li>लोणावळा, जि. पुणे, महाराष्ट्र</li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>© २०२६ मावळ वार्ता — डेमो टेम्प्लेट, केवळ प्रात्यक्षिकासाठी</span>
+        <span>Design demo inspired by regional Marathi news portals</span>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>
